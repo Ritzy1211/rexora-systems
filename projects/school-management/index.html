@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Greenfield Academy — School Management System | Rexora Systems</title>
+  <meta name="description" content="A live demo of the Rexora school management platform: students, teachers, fees, and reports in one clean dashboard." />
+
+  <!-- Ensure trailing slash so relative paths resolve correctly -->
+  <script>
+    (function () {
+      var p = location.pathname;
+      if (!/\.[a-z0-9]+$/i.test(p) && !p.endsWith('/')) {
+        location.replace(p + '/' + location.search + location.hash);
+      }
+    })();
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#0a0a0f', subink: '#15151c', panel: '#1a1a23', line: '#26262f',
+            brandGreen: '#4ade80', brandBlue: '#60a5fa', brandPurple: '#a78bfa',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Poppins', 'Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-ink text-gray-200 font-sans min-h-screen">
+
+  <!-- ════════════════════ LOGIN SCREEN ════════════════════ -->
+  <div id="login" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink">
+    <div aria-hidden="true" class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-brandBlue/10 blur-3xl"></div>
+      <div class="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-brandPurple/10 blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brandGreen/5 blur-3xl"></div>
+    </div>
+
+    <div class="relative w-full max-w-md">
+      <!-- Brand -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brandGreen to-brandBlue flex items-center justify-center text-ink font-display font-bold text-xl shadow-2xl">G</div>
+          <div class="text-left">
+            <div class="font-display font-bold text-white text-lg leading-tight">Greenfield</div>
+            <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em]">Academy</div>
+          </div>
+        </div>
+        <div class="font-display text-2xl font-bold text-white">Welcome back</div>
+        <div class="text-sm text-gray-500 mt-1">Sign in to continue to your school dashboard</div>
+      </div>
+
+      <form id="loginForm" class="bg-subink/80 backdrop-blur border border-white/10 rounded-2xl p-6 shadow-2xl space-y-4">
+        <!-- Role pills -->
+        <div>
+          <label class="text-xs text-gray-500 mb-2 block">Sign in as</label>
+          <div class="grid grid-cols-3 gap-2" id="rolePicker">
+            <button type="button" data-role="admin"   class="role-pill is-active">Administrator</button>
+            <button type="button" data-role="teacher" class="role-pill">Teacher</button>
+            <button type="button" data-role="parent"  class="role-pill">Parent</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs text-gray-500 mb-1.5 block">Email</label>
+          <input type="email" value="demo@greenfield.edu" class="w-full bg-white/5 border border-white/5 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-brandBlue/40 focus:border-brandBlue/50" />
+        </div>
+        <div>
+          <label class="text-xs text-gray-500 mb-1.5 block">Password</label>
+          <input type="password" value="demo1234" class="w-full bg-white/5 border border-white/5 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-brandBlue/40 focus:border-brandBlue/50" />
+        </div>
+
+        <button type="submit" class="w-full px-4 py-3 rounded-lg bg-gradient-to-r from-brandGreen to-brandBlue text-ink font-display font-bold text-sm hover:brightness-110 transition shadow-lg">
+          Sign in
+        </button>
+
+        <div class="text-center text-[11px] text-gray-500 pt-1">
+          Demo credentials are pre-filled · any value works
+        </div>
+      </form>
+
+      <div class="text-center text-xs text-gray-600 mt-5">
+        Powered by <a href="../../index.html" class="text-brandGreen hover:text-white">Rexora Systems</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════ DEMO BANNER ════════════════════ -->
+  <div class="bg-gradient-to-r from-brandBlue/20 via-brandPurple/20 to-brandGreen/20 border-b border-white/10">
+    <div class="max-w-[1400px] mx-auto px-6 py-2 flex items-center justify-between text-xs">
+      <div class="text-gray-300">
+        <span class="font-semibold text-white">Live Demo</span>
+        <span class="text-gray-500 mx-2">·</span>
+        <span class="text-gray-400">Greenfield Academy — sample data</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="resetDemo" class="text-gray-400 hover:text-white transition">Reset demo</button>
+        <a href="../../index.html" class="text-brandGreen hover:text-white transition flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to Rexora
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════ APP SHELL ════════════════════ -->
+  <div class="flex min-h-[calc(100vh-33px)]">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="w-64 hidden lg:flex flex-col border-r border-white/5 bg-subink/60 backdrop-blur">
+      <div class="px-6 py-5 border-b border-white/5 flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brandGreen to-brandBlue flex items-center justify-center text-ink font-display font-bold">G</div>
+        <div>
+          <div class="font-display font-bold text-white text-sm leading-tight">Greenfield</div>
+          <div class="text-[10px] text-gray-500 uppercase tracking-wider">Academy</div>
+        </div>
+      </div>
+
+      <nav class="flex-1 px-3 py-5 space-y-1 text-sm">
+        <div class="px-3 mb-2 text-[10px] uppercase tracking-[0.2em] text-gray-500">Menu</div>
+        <button data-tab="dashboard" data-roles="admin,teacher,parent" class="nav-link">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+          Dashboard
+        </button>
+        <button data-tab="students" data-roles="admin,teacher" class="nav-link">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Students
+          <span class="ml-auto text-[10px] px-1.5 py-0.5 rounded-md bg-white/5 text-gray-400">1,284</span>
+        </button>
+        <button data-tab="attendance" data-roles="admin,teacher" class="nav-link">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Attendance
+          <span class="ml-auto text-[10px] px-1.5 py-0.5 rounded-md bg-brandBlue/15 text-brandBlue">Today</span>
+        </button>
+        <button data-tab="teachers" data-roles="admin" class="nav-link">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          Teachers
+        </button>
+        <button data-tab="fees" data-roles="admin,parent" class="nav-link">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          Fees
+          <span class="ml-auto text-[10px] px-1.5 py-0.5 rounded-md bg-brandGreen/15 text-brandGreen">3 due</span>
+        </button>
+        <button data-tab="reports" data-roles="admin,teacher,parent" class="nav-link">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+          Reports
+        </button>
+      </nav>
+
+      <div class="p-4 border-t border-white/5">
+        <div class="flex items-center gap-3">
+          <div id="userAvatar" class="w-9 h-9 rounded-full bg-gradient-to-br from-brandPurple to-brandBlue flex items-center justify-center text-white text-sm font-bold">JP</div>
+          <div class="flex-1 min-w-0">
+            <div id="userName" class="text-sm font-semibold text-white truncate">John Paulson</div>
+            <div id="userRoleLbl" class="text-xs text-gray-500 truncate">Administrator</div>
+          </div>
+          <button id="signOutBtn" title="Sign out" class="p-1.5 rounded-md text-gray-500 hover:text-white hover:bg-white/5">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="flex-1 min-w-0">
+      <!-- Topbar -->
+      <header class="sticky top-0 z-10 bg-ink/80 backdrop-blur border-b border-white/5">
+        <div class="flex items-center gap-4 px-6 lg:px-10 h-16">
+          <div class="hidden md:flex items-center gap-2 flex-1 max-w-md">
+            <div class="relative w-full">
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" placeholder="Search students, teachers, classes…" class="w-full bg-white/5 border border-white/5 rounded-lg pl-10 pr-3 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-brandBlue/40" />
+            </div>
+          </div>
+          <div class="ml-auto flex items-center gap-2">
+            <div id="roleBadge" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 text-xs">
+              <span class="w-1.5 h-1.5 rounded-full bg-brandGreen"></span>
+              <span class="text-gray-400">Viewing as</span>
+              <span class="text-white font-semibold">Administrator</span>
+            </div>
+            <button class="relative p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-brandGreen"></span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="p-6 lg:p-10 max-w-[1400px]">
+
+        <!-- ════════════ DASHBOARD ════════════ -->
+        <section data-view="dashboard" class="view space-y-8">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <div class="text-sm text-gray-500" id="welcomeText">Welcome back, John</div>
+              <h1 class="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">Term Overview</h1>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <span class="px-3 py-1.5 rounded-full bg-brandGreen/15 text-brandGreen font-semibold">+12% this week</span>
+              <button class="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white border border-white/5">Export PDF</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="kpiGrid">
+            <div class="kpi"><div class="kpi__label">Students</div><div class="kpi__value" data-kpi="students">1,284</div><div class="kpi__delta text-brandGreen">↑ 28 new this month</div></div>
+            <div class="kpi"><div class="kpi__label">Attendance</div><div class="kpi__value text-brandBlue" data-kpi="attendance">96%</div><div class="kpi__delta text-brandGreen">↑ 2.1% vs last week</div></div>
+            <div class="kpi"><div class="kpi__label">Fees Paid</div><div class="kpi__value text-brandGreen" data-kpi="feesPaid">$48k</div><div class="kpi__delta text-gray-500">of $54k expected</div></div>
+            <div class="kpi"><div class="kpi__label">Teachers</div><div class="kpi__value">64</div><div class="kpi__delta text-brandPurple">12 departments</div></div>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 panel p-6">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <div class="text-sm font-semibold text-white">Attendance — last 7 days</div>
+                  <div class="text-xs text-gray-500 mt-0.5">School-wide daily check-ins</div>
+                </div>
+                <div class="flex gap-1 text-[11px]">
+                  <button class="px-3 py-1 rounded-md bg-white/5 text-white">Week</button>
+                  <button class="px-3 py-1 rounded-md text-gray-500 hover:text-white">Month</button>
+                  <button class="px-3 py-1 rounded-md text-gray-500 hover:text-white">Term</button>
+                </div>
+              </div>
+              <div id="attendanceChart" class="h-64"></div>
+            </div>
+
+            <div class="panel p-6">
+              <div class="text-sm font-semibold text-white mb-5">Quick actions</div>
+              <div class="space-y-2">
+                <button data-action="add-student" class="qa">
+                  <div class="w-8 h-8 rounded-lg bg-brandBlue/20 flex items-center justify-center text-brandBlue">+</div>
+                  <div><div class="text-sm text-white">Enroll student</div><div class="text-xs text-gray-500">Add to active roster</div></div>
+                </button>
+                <button data-action="mark-attendance" class="qa">
+                  <div class="w-8 h-8 rounded-lg bg-brandBlue/20 flex items-center justify-center text-brandBlue">✓</div>
+                  <div><div class="text-sm text-white">Mark today's attendance</div><div class="text-xs text-gray-500">Daily check-in</div></div>
+                </button>
+                <button data-action="send-invoices" class="qa">
+                  <div class="w-8 h-8 rounded-lg bg-brandGreen/20 flex items-center justify-center text-brandGreen">$</div>
+                  <div><div class="text-sm text-white">Send fee invoices</div><div class="text-xs text-gray-500">Term 2 · 264 pending</div></div>
+                </button>
+                <button data-action="generate-reports" class="qa">
+                  <div class="w-8 h-8 rounded-lg bg-brandPurple/20 flex items-center justify-center text-brandPurple">↗</div>
+                  <div><div class="text-sm text-white">Generate grade reports</div><div class="text-xs text-gray-500">Auto-email parents</div></div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="flex items-center justify-between p-6 pb-4">
+              <div>
+                <div class="text-sm font-semibold text-white">Recent fee payments</div>
+                <div class="text-xs text-gray-500 mt-0.5">Live from payment gateway</div>
+              </div>
+              <button data-tab="fees" class="text-xs text-brandBlue hover:text-white">View all →</button>
+            </div>
+            <div class="overflow-hidden">
+              <div class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr] text-[10px] text-gray-500 uppercase tracking-wider px-6 py-2 bg-white/[0.02] border-y border-white/5">
+                <div>Name</div><div>Class</div><div>Status</div><div>Method</div><div class="text-right">Fees</div>
+              </div>
+              <div id="recentFees" class="divide-y divide-white/5"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════════════ STUDENTS ════════════ -->
+        <section data-view="students" class="view hidden space-y-6">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 class="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">Students</h1>
+              <div class="text-sm text-gray-500 mt-1" id="studentSubtitle">1,284 active · 28 enrolled this month</div>
+            </div>
+            <button data-action="add-student" class="px-4 py-2 rounded-lg bg-brandGreen text-ink font-semibold text-sm hover:brightness-110 transition">+ Enroll student</button>
+          </div>
+
+          <div class="panel p-4 flex flex-wrap gap-2">
+            <input id="studentSearch" type="text" placeholder="Search by name…" class="flex-1 min-w-[200px] bg-white/5 border border-white/5 rounded-lg px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-brandBlue/40" />
+            <select id="studentClass" class="bg-white/5 border border-white/5 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-brandBlue/40">
+              <option value="">All classes</option>
+              <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
+              <option>SSS 1</option><option>SSS 2</option><option>SSS 3</option>
+            </select>
+            <select id="studentStatus" class="bg-white/5 border border-white/5 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-brandBlue/40">
+              <option value="">Any status</option>
+              <option>Paid</option><option>Partial</option><option>Unpaid</option>
+            </select>
+          </div>
+
+          <div class="panel overflow-hidden">
+            <div class="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_60px] text-[10px] text-gray-500 uppercase tracking-wider px-6 py-3 bg-white/[0.02] border-b border-white/5">
+              <div>Student</div><div>Class</div><div>Guardian</div><div>Attendance</div><div>Fees</div><div></div>
+            </div>
+            <div id="studentRows" class="divide-y divide-white/5"></div>
+          </div>
+        </section>
+
+        <!-- ════════════ ATTENDANCE ════════════ -->
+        <section data-view="attendance" class="view hidden space-y-6">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 class="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">Attendance</h1>
+              <div class="text-sm text-gray-500 mt-1" id="attDateLbl">Today · Loading…</div>
+            </div>
+            <div class="flex gap-2">
+              <button id="markAllPresent" class="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm border border-white/5">Mark all present</button>
+              <button id="saveAttendance" class="px-4 py-2 rounded-lg bg-brandGreen text-ink font-semibold text-sm hover:brightness-110 transition">Save attendance</button>
+            </div>
+          </div>
+
+          <div class="panel p-4 flex flex-wrap gap-2 items-center">
+            <label class="text-xs text-gray-500">Class</label>
+            <select id="attClass" class="bg-white/5 border border-white/5 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-brandBlue/40">
+              <option>JSS 1</option><option>JSS 2</option><option selected>JSS 3</option>
+              <option>SSS 1</option><option>SSS 2</option><option>SSS 3</option>
+            </select>
+            <label class="text-xs text-gray-500 ml-2">Date</label>
+            <input id="attDate" type="date" class="bg-white/5 border border-white/5 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-brandBlue/40" />
+            <div class="ml-auto flex items-center gap-3 text-xs">
+              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-brandGreen"></span><span class="text-gray-400">Present</span> <span class="text-white font-semibold" id="cntPresent">0</span></span>
+              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-brandPurple"></span><span class="text-gray-400">Late</span> <span class="text-white font-semibold" id="cntLate">0</span></span>
+              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-400"></span><span class="text-gray-400">Absent</span> <span class="text-white font-semibold" id="cntAbsent">0</span></span>
+            </div>
+          </div>
+
+          <div id="attRows" class="space-y-2"></div>
+        </section>
+
+        <!-- ════════════ TEACHERS ════════════ -->
+        <section data-view="teachers" class="view hidden space-y-6">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 class="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">Teachers</h1>
+              <div class="text-sm text-gray-500 mt-1">64 staff across 12 departments</div>
+            </div>
+            <button class="px-4 py-2 rounded-lg bg-brandBlue text-ink font-semibold text-sm hover:brightness-110 transition">+ Add teacher</button>
+          </div>
+          <div id="teacherGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </section>
+
+        <!-- ════════════ FEES ════════════ -->
+        <section data-view="fees" class="view hidden space-y-6">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 class="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">Fees</h1>
+              <div class="text-sm text-gray-500 mt-1">Term 2 · 2025/26</div>
+            </div>
+            <div class="flex gap-2">
+              <button class="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm border border-white/5">Export CSV</button>
+              <button data-action="send-invoices" class="px-4 py-2 rounded-lg bg-brandGreen text-ink font-semibold text-sm hover:brightness-110 transition">Send invoices</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="kpi"><div class="kpi__label">Expected</div><div class="kpi__value">$54,000</div></div>
+            <div class="kpi"><div class="kpi__label">Collected</div><div class="kpi__value text-brandGreen" data-kpi="feeCollected">$48,200</div></div>
+            <div class="kpi"><div class="kpi__label">Outstanding</div><div class="kpi__value text-brandPurple" data-kpi="feeOutstanding">$5,800</div></div>
+            <div class="kpi"><div class="kpi__label">Collection rate</div><div class="kpi__value text-brandBlue" data-kpi="feeRate">89%</div></div>
+          </div>
+
+          <div class="panel p-6">
+            <div class="text-sm font-semibold text-white mb-4">Collection progress</div>
+            <div class="h-3 rounded-full bg-white/5 overflow-hidden">
+              <div id="collectionBar" class="h-full bg-gradient-to-r from-brandGreen to-brandBlue transition-all duration-700" style="width:89%"></div>
+            </div>
+            <div class="flex justify-between text-xs text-gray-500 mt-2">
+              <span id="collectionLbl">$48,200 of $54,000</span><span id="collectionPctLbl">89% collected</span>
+            </div>
+          </div>
+
+          <div class="panel overflow-hidden">
+            <div class="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_120px] text-[10px] text-gray-500 uppercase tracking-wider px-6 py-3 bg-white/[0.02] border-b border-white/5">
+              <div>Student</div><div>Class</div><div>Status</div><div>Method</div><div>Amount</div><div class="text-right">Action</div>
+            </div>
+            <div id="feeRows" class="divide-y divide-white/5"></div>
+          </div>
+        </section>
+
+        <!-- ════════════ REPORTS ════════════ -->
+        <section data-view="reports" class="view hidden space-y-6">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 class="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">Reports</h1>
+              <div class="text-sm text-gray-500 mt-1">Academic performance · Term 2</div>
+            </div>
+            <button data-action="generate-reports" class="px-4 py-2 rounded-lg bg-brandPurple text-ink font-semibold text-sm hover:brightness-110 transition">Generate term reports</button>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 panel p-6">
+              <div class="text-sm font-semibold text-white mb-1">Average score by subject</div>
+              <div class="text-xs text-gray-500 mb-6">Across all classes · out of 100</div>
+              <div id="subjectChart" class="space-y-3"></div>
+            </div>
+            <div class="panel p-6">
+              <div class="text-sm font-semibold text-white mb-5">Top performers</div>
+              <div id="topPerformers" class="space-y-3"></div>
+            </div>
+          </div>
+
+          <div class="panel p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-sm font-semibold text-white">Generated reports</div>
+              <span class="text-xs text-gray-500" id="reportsCount">3 reports · last 30 days</span>
+            </div>
+            <div id="reportList" class="space-y-2 text-sm"></div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ════════════════════ TOAST ════════════════════ -->
+  <div id="toast" class="fixed bottom-6 right-6 px-4 py-3 rounded-xl bg-subink border border-white/10 shadow-2xl text-sm text-white opacity-0 translate-y-3 pointer-events-none transition-all flex items-center gap-3 z-50">
+    <span id="toastDot" class="w-2 h-2 rounded-full bg-brandGreen"></span>
+    <span id="toastMsg">Saved</span>
+  </div>
+
+  <!-- ════════════════════ ENROLL MODAL ════════════════════ -->
+  <div id="modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="font-display font-semibold text-white">Enroll new student</div>
+        <button data-close-modal class="modal-x">×</button>
+      </div>
+      <form id="enrollForm" class="p-5 space-y-4">
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">Full name</label>
+          <input name="name" required class="modal-input" placeholder="e.g. Ada Okonkwo" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-gray-500 mb-1 block">Class</label>
+            <select name="class" class="modal-input">
+              <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
+              <option>SSS 1</option><option>SSS 2</option><option>SSS 3</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-gray-500 mb-1 block">Term fee ($)</label>
+            <input name="fee" type="number" value="320" class="modal-input" />
+          </div>
+        </div>
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">Guardian name</label>
+          <input name="guardian" required class="modal-input" placeholder="Parent / guardian" />
+        </div>
+        <div class="flex gap-2 pt-2">
+          <button type="button" data-close-modal class="btn-ghost">Cancel</button>
+          <button type="submit" class="btn-primary">Enroll</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ════════════════════ PAYMENT MODAL ════════════════════ -->
+  <div id="payModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <div class="font-display font-semibold text-white">Pay term fees</div>
+          <div class="text-xs text-gray-500" id="payStudent">—</div>
+        </div>
+        <button data-close-pay class="modal-x">×</button>
+      </div>
+
+      <div id="payBody" class="p-5 space-y-4">
+        <div class="rounded-xl bg-gradient-to-br from-brandBlue/15 to-brandPurple/10 border border-white/5 p-4">
+          <div class="text-xs text-gray-400">Amount due</div>
+          <div class="font-display text-3xl font-bold text-white mt-1" id="payAmount">$0</div>
+        </div>
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">Card number</label>
+          <input value="4242 4242 4242 4242" class="modal-input font-mono tracking-wider" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-gray-500 mb-1 block">Expiry</label>
+            <input value="12 / 28" class="modal-input font-mono" />
+          </div>
+          <div>
+            <label class="text-xs text-gray-500 mb-1 block">CVC</label>
+            <input value="123" class="modal-input font-mono" />
+          </div>
+        </div>
+        <div class="flex gap-2 pt-2">
+          <button data-close-pay class="btn-ghost">Cancel</button>
+          <button id="confirmPay" class="btn-primary">Pay <span id="payBtnAmount"></span></button>
+        </div>
+        <div class="text-[11px] text-gray-600 text-center">
+          🔒 Demo only — no real charge. Powered by Rexora Pay.
+        </div>
+      </div>
+
+      <div id="payProcessing" class="hidden p-10 text-center">
+        <div class="spinner mx-auto mb-4"></div>
+        <div class="text-white font-semibold">Processing payment…</div>
+        <div class="text-xs text-gray-500 mt-1">Securely contacting your bank</div>
+      </div>
+
+      <div id="paySuccess" class="hidden p-8 text-center">
+        <div class="w-16 h-16 mx-auto rounded-full bg-brandGreen/20 flex items-center justify-center mb-4 success-pop">
+          <svg class="w-8 h-8 text-brandGreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="font-display text-xl font-bold text-white">Payment successful</div>
+        <div class="text-sm text-gray-400 mt-1" id="paySuccessLbl">A receipt has been emailed to the guardian.</div>
+        <button data-close-pay class="mt-6 btn-primary inline-block px-6">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════ REPORTS GENERATION MODAL ════════════════════ -->
+  <div id="reportModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="font-display font-semibold text-white">Generate Term 2 reports</div>
+        <button data-close-report class="modal-x">×</button>
+      </div>
+      <div class="p-6 space-y-5" id="reportSteps">
+        <!-- Steps injected by JS -->
+      </div>
+      <div class="px-6 pb-6">
+        <div class="h-1.5 rounded-full bg-white/5 overflow-hidden">
+          <div id="reportBar" class="h-full bg-gradient-to-r from-brandGreen to-brandBlue transition-all duration-300" style="width:0%"></div>
+        </div>
+        <div class="flex justify-between mt-2">
+          <div class="text-xs text-gray-500" id="reportStatus">Preparing…</div>
+          <div class="text-xs text-gray-400" id="reportPct">0%</div>
+        </div>
+      </div>
+      <div id="reportDone" class="hidden px-6 pb-6 text-center">
+        <button data-close-report class="btn-primary inline-block px-6">View reports</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════ INVOICE BLAST MODAL ════════════════════ -->
+  <div id="invoiceModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="font-display font-semibold text-white">Send fee invoices</div>
+        <button data-close-invoice class="modal-x">×</button>
+      </div>
+      <div class="p-6 space-y-4" id="invoiceBody">
+        <div class="text-sm text-gray-300">Send Term 2 invoices to all parents with outstanding balances?</div>
+        <div class="rounded-xl bg-white/[0.03] border border-white/5 p-4 space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-gray-400">Recipients</span><span class="text-white font-semibold" id="invCount">—</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">Channels</span><span class="text-white">Email + SMS</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">Total amount</span><span class="text-brandGreen font-semibold" id="invTotal">$0</span></div>
+        </div>
+        <div class="flex gap-2 pt-1">
+          <button data-close-invoice class="btn-ghost">Cancel</button>
+          <button id="confirmInvoice" class="btn-primary">Send now</button>
+        </div>
+      </div>
+      <div id="invoiceProgress" class="hidden p-6 text-center">
+        <div class="spinner mx-auto mb-4"></div>
+        <div class="text-white font-semibold" id="invProgressLbl">Sending invoices…</div>
+        <div class="h-1 mt-4 rounded-full bg-white/5 overflow-hidden">
+          <div id="invBar" class="h-full bg-brandGreen transition-all duration-200" style="width:0%"></div>
+        </div>
+      </div>
+      <div id="invoiceDone" class="hidden p-8 text-center">
+        <div class="w-16 h-16 mx-auto rounded-full bg-brandGreen/20 flex items-center justify-center mb-4 success-pop">
+          <svg class="w-8 h-8 text-brandGreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="font-display text-xl font-bold text-white" id="invDoneLbl">Invoices delivered</div>
+        <div class="text-sm text-gray-400 mt-1">Parents will receive payment links instantly.</div>
+        <button data-close-invoice class="mt-6 btn-primary inline-block px-6">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

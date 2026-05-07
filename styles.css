@@ -1,0 +1,168 @@
+/* Rexora Systems — global polish */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0a0a0f;
+  background-image:
+    radial-gradient(1200px 600px at 80% -10%, rgba(167, 139, 250, 0.08), transparent 60%),
+    radial-gradient(1000px 500px at -10% 30%, rgba(96, 165, 250, 0.07), transparent 60%);
+}
+
+/* Soft scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f1f2a;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2c2c3a;
+}
+
+/* Subtle reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hero gradient text fallback */
+@supports not (background-clip: text) {
+  .bg-clip-text {
+    color: #4ade80;
+  }
+}
+
+/* ================= Brand marquee (Apple / Stripe style) ================= */
+.marquee {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  gap: 2rem;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+          mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+.marquee__track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 2rem;
+  min-width: 100%;
+  animation: marquee-left 40s linear infinite;
+  will-change: transform;
+}
+
+.marquee--reverse .marquee__track {
+  animation-name: marquee-right;
+  animation-duration: 50s;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-100% - 2rem)); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(calc(-100% - 2rem)); }
+  to   { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+}
+
+/* ===== Premium glass brand tile ===== */
+.brand-tile {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 13rem;
+  height: 7rem;
+  padding: 1rem 1.75rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 10px 40px -20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.brand-tile:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    inset 0 0 0 1px rgba(167, 139, 250, 0.4),
+    0 20px 50px -15px rgba(96, 165, 250, 0.4);
+}
+
+.brand-tile__img {
+  max-height: 3.25rem;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+
+.brand-tile:hover .brand-tile__img {
+  transform: scale(1.05);
+}
+
+.brand-tile__fallback {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-weight: 700;
+  color: #18181b;
+  font-size: 1rem;
+}
+
+/* "Your brand here" ghost tile */
+.brand-tile--ghost {
+  background: transparent;
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.12);
+  border-style: dashed;
+}
+
+.brand-tile--ghost:hover {
+  box-shadow:
+    inset 0 0 0 1.5px rgba(74, 222, 128, 0.5),
+    0 0 40px -10px rgba(74, 222, 128, 0.3);
+  background: rgba(74, 222, 128, 0.04);
+}
+
+.brand-tile--ghost .brand-tile__fallback {
+  color: #a1a1aa;
+  font-weight: 500;
+}
