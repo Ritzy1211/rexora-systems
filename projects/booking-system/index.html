@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vendora — Smart Booking for Service Businesses</title>
+  <meta name="description" content="Vendora powers booking, scheduling, and payments for salons, clinics, studios, and trades — built by Rexora Systems." />
+
+  <script>
+    // Trailing-slash redirect (so relative paths resolve correctly)
+    (function(){var p=location.pathname;if(!/\.[a-z0-9]+$/i.test(p)&&!p.endsWith('/'))location.replace(p+'/'+location.search+location.hash);})();
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { ink: '#0a0a0f', subink: '#15151c', brandGreen: '#4ade80', brandCyan: '#22d3ee', brandBlue: '#60a5fa' },
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'] }
+    }}}
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-ink text-gray-200 font-sans">
+
+  <!-- Demo banner -->
+  <div class="bg-gradient-to-r from-brandGreen/15 via-brandCyan/10 to-brandGreen/15 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between text-xs">
+      <div class="text-gray-300"><span class="font-semibold text-white">Live Demo</span><span class="text-gray-500 mx-2">·</span><span class="text-gray-400">Vendora · Lumière Studio</span></div>
+      <a href="../../index.html" class="text-brandGreen hover:text-white transition flex items-center gap-1.5">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Rexora
+      </a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-ink/85 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brandGreen to-brandCyan flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-5 h-5 text-ink" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM5 9h14v11H5V9zm2 3h5v5H7v-5z"/></svg>
+        </div>
+        <div>
+          <div class="font-bold text-white text-base leading-none tracking-tight">Vendora</div>
+          <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em] mt-1">Booking · Scheduling</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#features" class="v-link">Features</a>
+        <a href="#booking" class="v-link is-active">Try It</a>
+        <a href="#pricing" class="v-link">Pricing</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="#booking" class="hidden sm:inline-flex px-4 py-2 rounded-full bg-gradient-to-r from-brandGreen to-brandCyan text-ink text-xs font-bold hover:brightness-110 transition">Book a service</a>
+        <button id="mobileToggle" aria-label="Menu" class="md:hidden p-2 rounded-md text-gray-300 hover:text-white">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/5">
+      <a href="#features" class="block px-6 py-3 text-sm text-gray-300 border-b border-white/5">Features</a>
+      <a href="#booking" class="block px-6 py-3 text-sm text-gray-300 border-b border-white/5">Try It</a>
+      <a href="#pricing" class="block px-6 py-3 text-sm text-gray-300">Pricing</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="v-hero border-b border-white/5">
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-28 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-gray-400 mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
+        Built for salons, clinics, studios & trades
+      </div>
+      <h1 class="text-5xl lg:text-7xl font-bold text-white tracking-tight leading-[1.05] mb-6">
+        Booking that <span class="bg-gradient-to-r from-brandGreen to-brandCyan bg-clip-text text-transparent">runs itself.</span>
+      </h1>
+      <p class="max-w-2xl mx-auto text-lg text-gray-400 leading-relaxed mb-10">
+        Take 24/7 bookings, collect deposits, fill cancellations automatically, and never lose a client to "we'll call you back" again.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-16">
+        <a href="#booking" class="btn-primary !py-4 !px-7">Try the customer flow
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#dashboard" class="btn-ghost">See the business view</a>
+      </div>
+
+      <!-- Stat strip -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-8 border-t border-white/5">
+        <div><div class="text-3xl font-bold text-white">2.4×</div><div class="text-xs text-gray-500 mt-1">More bookings</div></div>
+        <div><div class="text-3xl font-bold text-white">−68%</div><div class="text-xs text-gray-500 mt-1">No-shows</div></div>
+        <div><div class="text-3xl font-bold text-white">12h</div><div class="text-xs text-gray-500 mt-1">Saved / week</div></div>
+        <div><div class="text-3xl font-bold text-white">24/7</div><div class="text-xs text-gray-500 mt-1">Always open</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+      <div class="max-w-2xl mb-14 reveal">
+        <p class="text-xs uppercase tracking-[0.2em] text-brandGreen mb-3">What's inside</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-white tracking-tight">Everything your front desk does — automated.</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="reveal stat-card">
+          <div class="w-10 h-10 rounded-lg bg-brandGreen/15 flex items-center justify-center text-brandGreen mb-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-2">Smart calendar</h4>
+          <p class="text-sm text-gray-400 leading-relaxed">Per-staff availability, buffer times, blackout days, and recurring bookings — all sync to Google Calendar.</p>
+        </div>
+        <div class="reveal stat-card">
+          <div class="w-10 h-10 rounded-lg bg-brandCyan/15 flex items-center justify-center text-brandCyan mb-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-2">Deposits & payments</h4>
+          <p class="text-sm text-gray-400 leading-relaxed">Take deposits at booking, charge no-show fees automatically, and accept Stripe, Paystack, or bank transfer.</p>
+        </div>
+        <div class="reveal stat-card">
+          <div class="w-10 h-10 rounded-lg bg-brandBlue/15 flex items-center justify-center text-brandBlue mb-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-2">SMS + email reminders</h4>
+          <p class="text-sm text-gray-400 leading-relaxed">Confirmations, 24h reminders, and "running late?" follow-ups — drop your no-show rate by up to 70%.</p>
+        </div>
+        <div class="reveal stat-card">
+          <div class="w-10 h-10 rounded-lg bg-brandGreen/15 flex items-center justify-center text-brandGreen mb-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-2">Auto-fill cancellations</h4>
+          <p class="text-sm text-gray-400 leading-relaxed">When someone cancels, the slot offers itself to your waitlist by SMS. Most fill in under 9 minutes.</p>
+        </div>
+        <div class="reveal stat-card">
+          <div class="w-10 h-10 rounded-lg bg-brandCyan/15 flex items-center justify-center text-brandCyan mb-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-2">Client profiles</h4>
+          <p class="text-sm text-gray-400 leading-relaxed">Notes, preferences, photos, allergies — everything your team needs the moment a regular walks in.</p>
+        </div>
+        <div class="reveal stat-card">
+          <div class="w-10 h-10 rounded-lg bg-brandBlue/15 flex items-center justify-center text-brandBlue mb-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-2">Revenue insights</h4>
+          <p class="text-sm text-gray-400 leading-relaxed">Daily, weekly, monthly — by service, by stylist, by source. See what's actually making the money.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking app -->
+  <section id="booking" class="border-b border-white/5 bg-gradient-to-b from-transparent to-white/[0.015]">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 py-20">
+
+      <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+        <p class="text-xs uppercase tracking-[0.2em] text-brandGreen mb-3">Live demo</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-white tracking-tight mb-3">See it from both sides.</h2>
+        <p class="text-gray-400">Try a real booking as a customer — then flip to the business dashboard.</p>
+      </div>
+
+      <!-- Toggle -->
+      <div class="flex justify-center mb-8">
+        <div class="inline-flex p-1 bg-white/[0.04] border border-white/5 rounded-xl">
+          <button class="view-tab is-active" data-view="customer">👤 Customer view</button>
+          <button class="view-tab" data-view="dashboard">📊 Business dashboard</button>
+        </div>
+      </div>
+
+      <div id="bookingApp" class="bg-subink/50 border border-white/5 rounded-3xl p-6 lg:p-10 backdrop-blur-xl">
+
+        <!-- ============ CUSTOMER VIEW ============ -->
+        <div id="customerView">
+
+          <!-- Stepper -->
+          <div class="flex items-center mb-10 max-w-3xl mx-auto">
+            <div class="step is-active flex flex-col items-center gap-2">
+              <span class="step-dot">1</span>
+              <span class="step-label">Service</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step flex flex-col items-center gap-2">
+              <span class="step-dot">2</span>
+              <span class="step-label">Staff</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step flex flex-col items-center gap-2">
+              <span class="step-dot">3</span>
+              <span class="step-label">Date</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step flex flex-col items-center gap-2">
+              <span class="step-dot">4</span>
+              <span class="step-label">Info</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step flex flex-col items-center gap-2">
+              <span class="step-dot">5</span>
+              <span class="step-label">Pay</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step flex flex-col items-center gap-2">
+              <span class="step-dot">✓</span>
+              <span class="step-label">Done</span>
+            </div>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-8">
+
+            <!-- Main panels -->
+            <div class="lg:col-span-2">
+
+              <!-- STEP 1 -->
+              <div class="step-panel">
+                <h3 class="text-xl font-semibold text-white mb-1">Choose a service</h3>
+                <p class="text-sm text-gray-500 mb-6">Pick what you'd like done today.</p>
+                <div id="serviceGrid" class="grid sm:grid-cols-2 gap-3"></div>
+                <div class="flex justify-end mt-8">
+                  <button id="step1Next" class="btn-primary" disabled>Continue
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 2 -->
+              <div class="step-panel hidden">
+                <h3 class="text-xl font-semibold text-white mb-1">Pick your stylist</h3>
+                <p class="text-sm text-gray-500 mb-6">Or let us match you with whoever's free first.</p>
+                <div id="staffGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+                <div class="flex justify-between mt-8">
+                  <button class="btn-ghost step-back">← Back</button>
+                  <button id="step2Next" class="btn-primary" disabled>Continue
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 3 -->
+              <div class="step-panel hidden">
+                <h3 class="text-xl font-semibold text-white mb-1">Pick a date</h3>
+                <p class="text-sm text-gray-500 mb-6">Next 14 days · Sundays closed</p>
+                <div id="calGrid" class="grid grid-cols-7 gap-2 mb-6"></div>
+
+                <div id="timeSection" class="hidden">
+                  <div class="flex items-center justify-between mb-3">
+                    <h4 class="text-sm font-semibold text-white">Available times</h4>
+                    <div class="text-xs text-gray-400"><span id="availCount" class="text-brandGreen font-semibold">0</span> of <span id="availTotal">15</span> open</div>
+                  </div>
+                  <div class="h-1 bg-white/[0.04] rounded-full overflow-hidden mb-4">
+                    <div id="availBar" class="h-full bg-gradient-to-r from-brandGreen to-brandCyan transition-all duration-500" style="width:0%"></div>
+                  </div>
+                  <div id="timeGrid" class="grid grid-cols-3 sm:grid-cols-5 gap-2.5 mt-5"></div>
+                  <div class="time-legend mt-5 pt-4 border-t border-white/5">
+                    <span><span class="swatch avail"></span>Available</span>
+                    <span><span class="swatch selected"></span>Your pick</span>
+                    <span><span class="swatch booked"></span>Already booked</span>
+                  </div>
+                </div>
+
+                <div class="flex justify-between mt-8">
+                  <button class="btn-ghost step-back">← Back</button>
+                  <button id="step3Next" class="btn-primary" disabled>Continue
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 4 -->
+              <div class="step-panel hidden">
+                <h3 class="text-xl font-semibold text-white mb-1">Your details</h3>
+                <p class="text-sm text-gray-500 mb-6">We'll send a confirmation by email and SMS.</p>
+                <form id="customerForm" class="space-y-4">
+                  <div class="grid sm:grid-cols-2 gap-3">
+                    <div>
+                      <label class="text-xs text-gray-500 mb-1.5 block">Full name</label>
+                      <input id="cName" type="text" class="v-input" placeholder="Sarah Chen" required />
+                    </div>
+                    <div>
+                      <label class="text-xs text-gray-500 mb-1.5 block">Phone</label>
+                      <input id="cPhone" type="tel" class="v-input" placeholder="+234 803 555 0148" required />
+                    </div>
+                  </div>
+                  <div>
+                    <label class="text-xs text-gray-500 mb-1.5 block">Email</label>
+                    <input id="cEmail" type="email" class="v-input" placeholder="sarah@example.com" required />
+                  </div>
+                  <div>
+                    <label class="text-xs text-gray-500 mb-1.5 block">Notes for your stylist <span class="text-gray-600">(optional)</span></label>
+                    <textarea id="cNotes" rows="3" class="v-input" placeholder="Allergies, references, things to avoid…"></textarea>
+                  </div>
+                </form>
+                <div class="flex justify-between mt-8">
+                  <button class="btn-ghost step-back">← Back</button>
+                  <button id="step4Next" class="btn-primary" disabled>Continue to payment
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 5 -->
+              <div class="step-panel hidden">
+                <h3 class="text-xl font-semibold text-white mb-1">Secure your slot</h3>
+                <p class="text-sm text-gray-500 mb-6">Pay 25% deposit now. The rest is settled in person.</p>
+
+                <div class="space-y-3 mb-6">
+                  <div>
+                    <label class="text-xs text-gray-500 mb-1.5 block">Card number</label>
+                    <input type="text" value="4242 4242 4242 4242" class="v-input font-mono tracking-wider" />
+                  </div>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="text-xs text-gray-500 mb-1.5 block">Expiry</label>
+                      <input type="text" value="12 / 28" class="v-input font-mono" />
+                    </div>
+                    <div>
+                      <label class="text-xs text-gray-500 mb-1.5 block">CVC</label>
+                      <input type="text" value="123" class="v-input font-mono" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rounded-xl bg-gradient-to-br from-brandGreen/15 to-brandCyan/10 border border-brandGreen/20 p-4 mb-6">
+                  <div class="flex items-center gap-2 text-xs text-brandGreen mb-1">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    No-show protection
+                  </div>
+                  <p class="text-xs text-gray-400 leading-relaxed">Your deposit is fully refundable if you cancel 24+ hours in advance. Free reschedules anytime.</p>
+                </div>
+
+                <div class="flex justify-between">
+                  <button class="btn-ghost step-back">← Back</button>
+                  <button id="payBtn" class="btn-primary !py-4 !px-7">Pay deposit & confirm</button>
+                </div>
+              </div>
+
+              <!-- STEP 6: Confirmation -->
+              <div class="step-panel hidden text-center">
+                <div class="w-20 h-20 mx-auto rounded-full bg-brandGreen/15 flex items-center justify-center mb-6">
+                  <svg class="w-10 h-10 text-brandGreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <h3 class="text-3xl font-bold text-white mb-3">You're booked.</h3>
+                <p class="text-gray-400 max-w-md mx-auto mb-6">A confirmation is on its way to <span id="confEmail" class="text-white">your email</span>. We'll send a reminder 24 hours before.</p>
+
+                <div class="max-w-md mx-auto bg-white/[0.03] border border-white/5 rounded-2xl p-6 text-left mb-8">
+                  <div class="flex items-center justify-between pb-4 border-b border-white/5 mb-4">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider">Booking ref</span>
+                    <span id="confRef" class="text-sm text-white font-mono">VND-000000</span>
+                  </div>
+                  <dl class="space-y-3 text-sm">
+                    <div class="flex justify-between"><dt class="text-gray-500">Service</dt><dd id="confService" class="text-white">—</dd></div>
+                    <div class="flex justify-between"><dt class="text-gray-500">With</dt><dd id="confStaff" class="text-white">—</dd></div>
+                    <div class="flex justify-between"><dt class="text-gray-500">When</dt><dd id="confDateTime" class="text-white">—</dd></div>
+                    <div class="flex justify-between pt-3 border-t border-white/5"><dt class="text-gray-400">Deposit paid</dt><dd id="confDeposit" class="text-brandGreen font-semibold">—</dd></div>
+                    <div class="flex justify-between"><dt class="text-gray-400">Balance due</dt><dd id="confTotal" class="text-white">—</dd></div>
+                  </dl>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-3">
+                  <button class="btn-ghost">Add to Calendar</button>
+                  <button id="bookAnother" class="btn-primary">Book another</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live summary -->
+            <aside class="lg:col-span-1">
+              <div class="lg:sticky lg:top-24 bg-white/[0.02] border border-white/5 rounded-2xl p-6">
+                <div class="flex items-center justify-between mb-5">
+                  <h4 class="text-sm font-semibold text-white">Your booking</h4>
+                  <span class="text-[10px] uppercase tracking-wider text-brandGreen px-2 py-1 rounded-full bg-brandGreen/10">Live</span>
+                </div>
+                <dl class="space-y-3.5 text-sm pb-4 border-b border-white/5 mb-4">
+                  <div class="flex justify-between gap-3"><dt class="text-gray-500 shrink-0">Service</dt><dd id="sumService" class="text-white text-right">—</dd></div>
+                  <div class="flex justify-between gap-3"><dt class="text-gray-500 shrink-0">Duration</dt><dd id="sumDuration" class="text-white text-right">—</dd></div>
+                  <div class="flex justify-between gap-3"><dt class="text-gray-500 shrink-0">Stylist</dt><dd id="sumStaff" class="text-white text-right">—</dd></div>
+                  <div class="flex justify-between gap-3"><dt class="text-gray-500 shrink-0">Date</dt><dd id="sumDate" class="text-white text-right">—</dd></div>
+                  <div class="flex justify-between gap-3"><dt class="text-gray-500 shrink-0">Time</dt><dd id="sumTime" class="text-white text-right">—</dd></div>
+                </dl>
+                <dl class="space-y-2 text-sm">
+                  <div class="flex justify-between"><dt class="text-gray-400">Total</dt><dd id="sumTotal" class="text-white font-semibold">—</dd></div>
+                  <div class="flex justify-between"><dt class="text-gray-400">Deposit (25%)</dt><dd id="sumDeposit" class="text-brandGreen font-semibold">—</dd></div>
+                </dl>
+                <div class="mt-5 text-[11px] text-gray-500 leading-relaxed">
+                  🔒 Secure checkout. Free cancellation up to 24 hours before your booking.
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <!-- ============ DASHBOARD VIEW ============ -->
+        <div id="dashboardView" class="hidden">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h3 class="text-xl font-semibold text-white">Today · Thursday, May 7</h3>
+              <p class="text-sm text-gray-500">Lumière Studio · Lekki</p>
+            </div>
+            <button class="btn-ghost">+ New booking</button>
+          </div>
+
+          <!-- KPIs -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div class="stat-card">
+              <div class="text-xs text-gray-500 mb-1">Today's bookings</div>
+              <div class="text-3xl font-bold text-white">8</div>
+              <div class="text-xs text-brandGreen mt-1">2 in progress</div>
+            </div>
+            <div class="stat-card">
+              <div class="text-xs text-gray-500 mb-1">Revenue today</div>
+              <div class="text-3xl font-bold text-white">$687</div>
+              <div class="text-xs text-brandGreen mt-1">+18% vs avg</div>
+            </div>
+            <div class="stat-card">
+              <div class="text-xs text-gray-500 mb-1">Utilization</div>
+              <div class="text-3xl font-bold text-white">82%</div>
+              <div class="text-xs text-gray-500 mt-1">Great pace</div>
+            </div>
+            <div class="stat-card">
+              <div class="text-xs text-gray-500 mb-1">No-shows this wk</div>
+              <div class="text-3xl font-bold text-white">1</div>
+              <div class="text-xs text-gray-500 mt-1">Deposit recovered</div>
+            </div>
+          </div>
+
+          <!-- Revenue chart -->
+          <div class="stat-card mb-8">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="font-semibold text-white text-sm">Last 7 days</h4>
+              <div class="flex gap-1 text-xs">
+                <button class="px-2.5 py-1 rounded-md bg-white/5 text-white">Revenue</button>
+                <button class="px-2.5 py-1 rounded-md text-gray-500">Bookings</button>
+              </div>
+            </div>
+            <svg viewBox="0 0 700 160" class="w-full h-40">
+              <defs>
+                <linearGradient id="vendGrad" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#4ade80" stop-opacity="0.4" />
+                  <stop offset="100%" stop-color="#4ade80" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+              <path d="M 30,110 L 130,90 L 230,100 L 330,60 L 430,75 L 530,40 L 630,55 L 630,150 L 30,150 Z" fill="url(#vendGrad)"/>
+              <path d="M 30,110 L 130,90 L 230,100 L 330,60 L 430,75 L 530,40 L 630,55" stroke="#4ade80" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <g font-size="10" fill="#475569" text-anchor="middle">
+                <text x="30" y="155">Fri</text><text x="130" y="155">Sat</text><text x="230" y="155">Sun</text>
+                <text x="330" y="155">Mon</text><text x="430" y="155">Tue</text><text x="530" y="155">Wed</text><text x="630" y="155">Thu</text>
+              </g>
+              <circle cx="630" cy="55" r="4" fill="#4ade80"/>
+            </svg>
+          </div>
+
+          <!-- Booking list -->
+          <h4 class="font-semibold text-white text-sm mb-3">Today's schedule</h4>
+          <div id="bookingList" class="space-y-2"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="border-b border-white/5">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8 py-20 text-center">
+      <p class="text-xs uppercase tracking-[0.2em] text-brandGreen mb-3 reveal">Simple pricing</p>
+      <h2 class="text-3xl lg:text-4xl font-bold text-white tracking-tight mb-4 reveal">One flat fee. No per-booking surcharge.</h2>
+      <p class="text-gray-400 mb-12 reveal">Cancel any time. We earn it monthly.</p>
+
+      <div class="grid md:grid-cols-3 gap-5 text-left">
+        <div class="reveal stat-card">
+          <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Solo</div>
+          <div class="text-4xl font-bold text-white mb-1">$29<span class="text-base text-gray-500 font-normal">/mo</span></div>
+          <p class="text-xs text-gray-500 mb-5">Single practitioner</p>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li class="flex gap-2"><span class="text-brandGreen">✓</span> Unlimited bookings</li>
+            <li class="flex gap-2"><span class="text-brandGreen">✓</span> SMS + email reminders</li>
+            <li class="flex gap-2"><span class="text-brandGreen">✓</span> Payment processing</li>
+          </ul>
+        </div>
+        <div class="reveal stat-card relative" style="border-color: rgba(74,222,128,0.5);">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-brandGreen to-brandCyan text-ink text-[10px] font-bold uppercase tracking-wider">Most popular</div>
+          <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Studio</div>
+          <div class="text-4xl font-bold text-white mb-1">$79<span class="text-base text-gray-500 font-normal">/mo</span></div>
+          <p class="text-xs text-gray-500 mb-5">Up to 10 staff</p>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li class="flex gap-2"><span class="text-brandGreen">✓</span> Everything in Solo</li>
+            <li class="flex gap-2"><span class="text-brandGreen">✓</span> Multi-staff scheduling</li>
+            <li class="flex gap-2"><span class="text-brandGreen">✓</span> Waitlist auto-fill</li>
+            <li class="flex gap-2"><span class="text-brandGreen">✓</span> Revenue analytics</li>
+          </ul>
+        </div>
+        <div class="reveal stat-card">
+          <div class="text-xs uppercase tracking-wider text-gray-500 mb-2">Chain</div>
+          <div class="text-4xl font-bold text-white mb-1">$199<span class="text-base text-gray-500 font-normal">/mo</span></div>
+          <p class="text-xs text-gray-500 mb-5">Multi-location</p>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li class="flex gap-2"><span class="text-brandGreen">✓</span> Everything in Studio</li>
+            <li class="flex gap-2"><span class="text-brandGreen">✓</span> Location switching</li>
+            <li class="flex gap-2"><span class="text-brandGreen">✓</span> Dedicated success manager</li>
+            <li class="flex gap-2"><span class="text-brandGreen">✓</span> Custom integrations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-600">
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded-md bg-gradient-to-br from-brandGreen to-brandCyan flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-ink" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM5 9h14v11H5V9z"/></svg>
+        </div>
+        <div>© 2026 Vendora. Booking software that works.</div>
+      </div>
+      <div>Built by <a href="../../index.html" class="text-brandGreen hover:text-white">Rexora Systems</a></div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast"><span class="w-2 h-2 rounded-full bg-brandGreen"></span><span id="toastMsg">Saved</span></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

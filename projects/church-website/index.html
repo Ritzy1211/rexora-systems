@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christian Jewish Believers — A Place to Belong, Believe & Become</title>
+  <meta name="description" content="A modern home online for the Christian Jewish Believers ministry — services, sermons, livestream, and online giving." />
+
+  <!-- trailing-slash redirect for relative assets -->
+  <script>(function(){var p=location.pathname;if(!/\.[a-z0-9]+$/i.test(p)&&!p.endsWith('/'))location.replace(p+'/'+location.search+location.hash);})();</script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#0a0a0f', subink: '#15151c',
+            brandPurple: '#a78bfa', brandBlue: '#60a5fa', brandGreen: '#4ade80',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Playfair Display', 'serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-ink text-gray-200 font-sans">
+
+  <!-- Demo banner -->
+  <div class="bg-gradient-to-r from-brandPurple/20 via-brandBlue/15 to-brandPurple/20 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between text-xs">
+      <div class="text-gray-300"><span class="font-semibold text-white">Live Demo</span><span class="text-gray-500 mx-2">·</span><span class="text-gray-400">Christian Jewish Believers</span></div>
+      <a href="../../index.html" class="text-brandPurple hover:text-white transition flex items-center gap-1.5">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Rexora
+      </a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-ink/85 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brandPurple to-brandBlue flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-5 h-5 text-white" fill="currentColor"><path d="M12 2L9.5 7H4l4 4-1.5 6L12 14l5.5 3L16 11l4-4h-5.5z"/></svg>
+        </div>
+        <div>
+          <div class="font-display font-bold text-white text-sm leading-tight">Christian Jewish</div>
+          <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em]">Believers</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="cb-link is-active">Home</a>
+        <a href="sermons.html" class="cb-link">Sermons</a>
+        <a href="#beliefs" class="cb-link">Beliefs</a>
+        <a href="#visit" class="cb-link">Visit</a>
+        <a href="give.html" class="cb-link">Give</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="give.html" class="hidden sm:inline-flex px-4 py-2 rounded-full bg-gradient-to-r from-brandPurple to-brandBlue text-white text-xs font-semibold hover:brightness-110 transition">Give Online</a>
+        <button id="mobileToggle" aria-label="Menu" class="md:hidden p-2 rounded-md text-gray-300 hover:text-white">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/5">
+      <a href="index.html" class="mob-link is-active">Home</a>
+      <a href="sermons.html" class="mob-link">Sermons</a>
+      <a href="#beliefs" class="mob-link">Beliefs</a>
+      <a href="#visit" class="mob-link">Visit</a>
+      <a href="give.html" class="mob-link">Give</a>
+    </div>
+  </header>
+
+  <!-- ════════ HERO ════════ -->
+  <section class="hero-bg">
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-24 lg:pt-32 lg:pb-36 text-center">
+      <div class="reveal inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-brandPurple"></span>
+        Sunday Service · 10:00 AM
+      </div>
+      <h1 class="reveal font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05] tracking-tight">
+        A place to <span class="brand-mark">belong</span>,<br/>
+        believe & become.
+      </h1>
+      <p class="reveal max-w-2xl mx-auto mt-6 text-lg text-gray-400 leading-relaxed">
+        We are a community rooted in the Hebrew foundations of faith, walking together in the love of Yeshua. Whether you're new or returning home, there's a seat at the table for you.
+      </p>
+      <div class="reveal mt-10 flex flex-wrap justify-center gap-3">
+        <a href="#visit" class="btn-primary">Plan Your Visit
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#live" class="btn-secondary">
+          <span class="live-dot"></span> Watch Live
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ LIVE / NEXT SERVICE ════════ -->
+  <section id="live" class="max-w-7xl mx-auto px-6 lg:px-8 pb-20 -mt-10 lg:-mt-14">
+    <div class="reveal grid lg:grid-cols-3 gap-6 bg-subink border border-white/5 rounded-2xl overflow-hidden p-6 lg:p-8 shadow-2xl">
+      <!-- Live player -->
+      <div class="lg:col-span-2 aspect-video rounded-xl bg-gradient-to-br from-brandPurple/30 via-brandBlue/30 to-brandPurple/20 relative flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 opacity-20" style="background:radial-gradient(circle at 30% 40%, rgba(255,255,255,0.2), transparent 50%)"></div>
+        <button class="relative w-20 h-20 rounded-full bg-white/95 flex items-center justify-center shadow-2xl hover:scale-105 transition">
+          <div class="w-0 h-0 border-y-[14px] border-y-transparent border-l-[20px] border-l-ink ml-1.5"></div>
+        </button>
+        <div class="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur text-xs text-white">
+          <span class="live-dot"></span>
+          LIVE NOW
+        </div>
+      </div>
+      <!-- Live info -->
+      <div class="flex flex-col justify-center">
+        <div class="text-xs text-brandPurple font-semibold uppercase tracking-wider mb-2">Now Streaming</div>
+        <h3 class="font-display text-2xl text-white font-semibold leading-tight mb-2">Walking In Purpose</h3>
+        <div class="text-sm text-gray-400 mb-4">Pastor M. Owusu · Identity Series</div>
+        <div class="flex items-center gap-2 text-sm text-gray-300 mb-6">
+          <svg class="w-4 h-4 text-brandGreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span><span id="liveCount" class="text-white font-semibold">412</span> watching</span>
+        </div>
+        <div class="flex gap-2">
+          <a href="sermons.html" class="flex-1 px-4 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm text-center transition">Past Sermons</a>
+          <button class="px-4 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 transition" title="Share">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ BELIEFS ════════ -->
+  <section id="beliefs" class="border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-32">
+      <div class="reveal text-center max-w-3xl mx-auto mb-16">
+        <div class="text-xs uppercase tracking-[0.25em] text-brandPurple mb-3">What We Believe</div>
+        <h2 class="font-display text-4xl lg:text-5xl text-white font-bold leading-tight">Rooted in Scripture.<br/>United in Love.</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="reveal p-8 rounded-2xl bg-subink border border-white/5">
+          <div class="w-11 h-11 rounded-xl bg-brandPurple/15 text-brandPurple flex items-center justify-center mb-5">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+          </div>
+          <h3 class="font-display text-xl text-white font-semibold mb-2">One God, One Family</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">We worship the God of Abraham, Isaac and Jacob — revealed in Yeshua, our Messiah and Lord.</p>
+        </div>
+        <div class="reveal p-8 rounded-2xl bg-subink border border-white/5">
+          <div class="w-11 h-11 rounded-xl bg-brandBlue/15 text-brandBlue flex items-center justify-center mb-5">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <h3 class="font-display text-xl text-white font-semibold mb-2">The Word Is Alive</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">The Scriptures are God-breathed — the foundation we live, teach and grow by every day.</p>
+        </div>
+        <div class="reveal p-8 rounded-2xl bg-subink border border-white/5">
+          <div class="w-11 h-11 rounded-xl bg-brandGreen/15 text-brandGreen flex items-center justify-center mb-5">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3 class="font-display text-xl text-white font-semibold mb-2">Love That Acts</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">Faith without love is hollow. We serve our neighbours, our city and the nations with open hands.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ UPCOMING EVENTS ════════ -->
+  <section class="border-t border-white/5 bg-gradient-to-b from-subink/40 to-transparent">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24">
+      <div class="reveal flex flex-wrap items-end justify-between gap-4 mb-10">
+        <div>
+          <div class="text-xs uppercase tracking-[0.25em] text-brandPurple mb-2">This Month</div>
+          <h2 class="font-display text-3xl lg:text-4xl text-white font-bold">Upcoming Gatherings</h2>
+        </div>
+        <a href="#" class="text-sm text-brandPurple hover:text-white transition">View full calendar →</a>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5">
+        <article class="reveal flex gap-5 p-5 rounded-xl bg-subink border border-white/5 hover:border-brandPurple/30 transition">
+          <div class="text-center min-w-[60px]">
+            <div class="text-[10px] uppercase tracking-wider text-brandPurple font-semibold">May</div>
+            <div class="font-display text-3xl text-white font-bold">11</div>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-1">Sunday Worship Service</h4>
+            <div class="text-xs text-gray-500 mb-2">10:00 AM · Main Sanctuary</div>
+            <p class="text-xs text-gray-400">Bring a friend. Coffee & fellowship at 9:30 AM.</p>
+          </div>
+        </article>
+        <article class="reveal flex gap-5 p-5 rounded-xl bg-subink border border-white/5 hover:border-brandPurple/30 transition">
+          <div class="text-center min-w-[60px]">
+            <div class="text-[10px] uppercase tracking-wider text-brandBlue font-semibold">May</div>
+            <div class="font-display text-3xl text-white font-bold">14</div>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-1">Midweek Prayer Night</h4>
+            <div class="text-xs text-gray-500 mb-2">7:00 PM · Online + In-person</div>
+            <p class="text-xs text-gray-400">A time to seek the Lord together for our city.</p>
+          </div>
+        </article>
+        <article class="reveal flex gap-5 p-5 rounded-xl bg-subink border border-white/5 hover:border-brandPurple/30 transition">
+          <div class="text-center min-w-[60px]">
+            <div class="text-[10px] uppercase tracking-wider text-brandGreen font-semibold">May</div>
+            <div class="font-display text-3xl text-white font-bold">23</div>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-1">Shabbat Dinner</h4>
+            <div class="text-xs text-gray-500 mb-2">6:30 PM · Fellowship Hall</div>
+            <p class="text-xs text-gray-400">Celebrate the Sabbath with food, song & teaching.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ VISIT / NEW HERE ════════ -->
+  <section id="visit" class="border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-32 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="reveal">
+        <div class="text-xs uppercase tracking-[0.25em] text-brandPurple mb-3">New Here?</div>
+        <h2 class="font-display text-4xl lg:text-5xl text-white font-bold leading-tight mb-5">Your first visit, made easy.</h2>
+        <p class="text-gray-400 leading-relaxed mb-8">Walking into a new church takes courage. Here's what to expect, so you can relax and worship with us.</p>
+        <ul class="space-y-4 mb-10">
+          <li class="flex gap-4">
+            <div class="w-8 h-8 rounded-full bg-brandPurple/15 text-brandPurple flex items-center justify-center text-sm font-bold flex-shrink-0">1</div>
+            <div>
+              <div class="text-white font-semibold mb-0.5">Come as you are</div>
+              <div class="text-sm text-gray-400">Casual or dressed up — both are welcome.</div>
+            </div>
+          </li>
+          <li class="flex gap-4">
+            <div class="w-8 h-8 rounded-full bg-brandBlue/15 text-brandBlue flex items-center justify-center text-sm font-bold flex-shrink-0">2</div>
+            <div>
+              <div class="text-white font-semibold mb-0.5">Arrive a little early</div>
+              <div class="text-sm text-gray-400">Coffee starts at 9:30 AM. Service begins at 10:00 AM sharp.</div>
+            </div>
+          </li>
+          <li class="flex gap-4">
+            <div class="w-8 h-8 rounded-full bg-brandGreen/15 text-brandGreen flex items-center justify-center text-sm font-bold flex-shrink-0">3</div>
+            <div>
+              <div class="text-white font-semibold mb-0.5">Stay for fellowship</div>
+              <div class="text-sm text-gray-400">We'd love to greet you and answer your questions.</div>
+            </div>
+          </li>
+        </ul>
+        <a href="#" class="btn-primary">Let us know you're coming
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="reveal">
+        <div class="rounded-2xl overflow-hidden border border-white/5 bg-subink">
+          <div class="aspect-[4/3] bg-gradient-to-br from-brandPurple/20 via-brandBlue/15 to-subink p-8 flex flex-col justify-end">
+            <div class="text-xs text-brandPurple uppercase tracking-wider mb-2">Our Location</div>
+            <div class="font-display text-2xl text-white font-bold mb-1">Lekki Sanctuary</div>
+            <div class="text-sm text-gray-400">14B Admiralty Way, Lekki Phase 1, Lagos</div>
+          </div>
+          <div class="p-6 space-y-3 border-t border-white/5">
+            <div class="flex items-center gap-3 text-sm">
+              <svg class="w-4 h-4 text-brandPurple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span class="text-gray-300">Sunday Service · 10:00 AM</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <svg class="w-4 h-4 text-brandBlue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span class="text-gray-300">Midweek Prayer · Wed 7:00 PM</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <svg class="w-4 h-4 text-brandGreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span class="text-gray-300">+234 803 555 0148</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ NEWSLETTER ════════ -->
+  <section class="border-t border-white/5 bg-gradient-to-b from-brandPurple/[0.05] to-transparent">
+    <div class="max-w-3xl mx-auto px-6 py-20 text-center">
+      <h2 class="reveal font-display text-3xl lg:text-4xl text-white font-bold mb-3">Stay encouraged.</h2>
+      <p class="reveal text-gray-400 mb-8">A short weekly note from our pastors — Scripture, prayer points, and updates.</p>
+      <form id="newsletterForm" class="reveal flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+        <input type="email" required placeholder="your@email.com" class="cb-input flex-1" />
+        <button type="submit" class="btn-primary">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer class="border-t border-white/5 mt-8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div>
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brandPurple to-brandBlue flex items-center justify-center">
+            <svg viewBox="0 0 24 24" class="w-5 h-5 text-white" fill="currentColor"><path d="M12 2L9.5 7H4l4 4-1.5 6L12 14l5.5 3L16 11l4-4h-5.5z"/></svg>
+          </div>
+          <div>
+            <div class="font-display font-bold text-white text-sm leading-tight">Christian Jewish</div>
+            <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em]">Believers</div>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">A place to belong, believe and become — rooted in the Hebrew foundations of faith.</p>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wider text-gray-500 mb-3 font-semibold">Visit</div>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li>Sundays · 10:00 AM</li>
+          <li>14B Admiralty Way</li>
+          <li>Lekki Phase 1, Lagos</li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wider text-gray-500 mb-3 font-semibold">Connect</div>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li><a href="sermons.html" class="hover:text-white">Sermons</a></li>
+          <li><a href="give.html" class="hover:text-white">Give</a></li>
+          <li><a href="#" class="hover:text-white">Contact</a></li>
+          <li><a href="#" class="hover:text-white">Newsletter</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wider text-gray-500 mb-3 font-semibold">Follow</div>
+        <div class="flex gap-2">
+          <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-300 transition" aria-label="YouTube">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.8 31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6z"/></svg>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-300 transition" aria-label="Instagram">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-300 transition" aria-label="Facebook">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9V15h-2.5v-3h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.5 3h-2.4v6.9A10 10 0 0 0 22 12z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 py-5 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-600">
+        <div>© 2026 Christian Jewish Believers. All rights reserved.</div>
+        <div>Built by <a href="../../index.html" class="text-brandPurple hover:text-white">Rexora Systems</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast">
+    <span class="w-2 h-2 rounded-full bg-brandGreen"></span>
+    <span id="toastMsg">Saved</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

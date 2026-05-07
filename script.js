@@ -1,5 +1,101 @@
 // Rexora Systems — minimal interactions
 
+// ════════════ NAV: scroll state, scroll-spy, mobile toggle ════════════
+(function navInit() {
+  const header   = document.getElementById('siteHeader');
+  const navLinks = [...document.querySelectorAll('#primaryNav .nav-pill')];
+  const mobLinks = [...document.querySelectorAll('.mobile-link')];
+  const indicator = document.getElementById('navIndicator');
+  const toggle   = document.getElementById('mobileToggle');
+  const menu     = document.getElementById('mobileMenu');
+  const iMenu    = document.getElementById('iconMenu');
+  const iClose   = document.getElementById('iconClose');
+
+  // Scrolled style
+  const onScroll = () => {
+    if (!header) return;
+    header.classList.toggle('is-scrolled', window.scrollY > 20);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Slide indicator behind active pill
+  const moveIndicator = (link) => {
+    if (!indicator || !link) return;
+    const navRect  = link.parentElement.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+    indicator.style.left  = (linkRect.left - navRect.left) + 'px';
+    indicator.style.width = linkRect.width + 'px';
+    indicator.classList.add('is-visible');
+  };
+  const hideIndicator = () => indicator && indicator.classList.remove('is-visible');
+
+  // Scroll-spy via IntersectionObserver
+  const sections = navLinks
+    .map(l => document.getElementById(l.dataset.spy))
+    .filter(Boolean);
+  let activeId = null;
+
+  const setActive = (id) => {
+    if (id === activeId) return;
+    activeId = id;
+    let activeLink = null;
+    navLinks.forEach(l => {
+      const on = l.dataset.spy === id;
+      l.classList.toggle('is-active', on);
+      if (on) activeLink = l;
+    });
+    mobLinks.forEach(l => l.classList.toggle('is-active', l.dataset.spyM === id));
+    if (activeLink) moveIndicator(activeLink); else hideIndicator();
+  };
+
+  if (sections.length) {
+    const spy = new IntersectionObserver((entries) => {
+      // Pick the entry closest to the top of the viewport that is intersecting
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setActive(visible[0].target.id);
+    }, {
+      rootMargin: '-30% 0px -55% 0px',
+      threshold: 0,
+    });
+    sections.forEach(s => spy.observe(s));
+  }
+
+  // Reposition indicator on resize
+  window.addEventListener('resize', () => {
+    const active = navLinks.find(l => l.classList.contains('is-active'));
+    if (active) moveIndicator(active);
+  });
+
+  // Hover preview indicator
+  navLinks.forEach(l => {
+    l.addEventListener('mouseenter', () => moveIndicator(l));
+    l.addEventListener('mouseleave', () => {
+      const active = navLinks.find(x => x.classList.contains('is-active'));
+      if (active) moveIndicator(active); else hideIndicator();
+    });
+  });
+
+  // Mobile menu toggle
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const open = !menu.classList.contains('hidden');
+      menu.classList.toggle('hidden', open);
+      toggle.setAttribute('aria-expanded', String(!open));
+      iMenu.classList.toggle('hidden', !open);
+      iClose.classList.toggle('hidden', open);
+    });
+    mobLinks.forEach(l => l.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      toggle.setAttribute('aria-expanded', 'false');
+      iMenu.classList.remove('hidden');
+      iClose.classList.add('hidden');
+    }));
+  }
+})();
+
 // Smooth-scroll for in-page anchors (graceful enhancement over CSS smooth scroll)
 document.querySelectorAll('a[href^="#"]').forEach((a) => {
   a.addEventListener('click', (e) => {

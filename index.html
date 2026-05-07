@@ -49,28 +49,57 @@
 <body class="bg-ink text-gray-200 font-sans antialiased selection:bg-brandPurple/40 selection:text-white">
 
 <!-- ================= NAV ================= -->
-<header class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-ink/60 border-b border-white/5">
-  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-    <a href="#" class="flex items-center gap-2.5 group">
-      <!-- Rexora N-mark -->
-      <svg class="w-8 h-8 group-hover:scale-110 transition-transform" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
-        <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
-        <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
-      </svg>
-      <span class="font-display font-semibold tracking-tight text-white">REXORA <span class="text-brandPurple font-light tracking-[0.25em] text-xs">SYSTEMS</span></span>
-    </a>
-    <nav class="hidden md:flex items-center gap-10 text-sm text-gray-400">
-      <a href="#value" class="hover:text-white transition">Value</a>
-      <a href="#devices" class="hover:text-white transition">Showcase</a>
-      <a href="#work" class="hover:text-white transition">Work</a>
-      <a href="#testimonial" class="hover:text-white transition">Clients</a>
-      <a href="#contact" class="hover:text-white transition">Contact</a>
-    </nav>
-    <a href="https://wa.me/2348109561020?text=Hi%20John%2C%20I%27d%20like%20a%20free%20demo%20from%20Rexora%20Systems."
-       class="hidden sm:inline-flex items-center gap-2 bg-brandGreen text-ink font-semibold px-4 py-2 rounded-full text-sm hover:scale-105 hover:shadow-glow transition">
-       Get Free Demo
-    </a>
+<header id="siteHeader" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 lg:px-8 pt-4 transition-all duration-300" id="navWrap">
+    <div id="navInner" class="flex items-center justify-between gap-4 px-4 lg:px-6 h-14 rounded-full border border-white/10 bg-ink/70 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5)] transition-all duration-300">
+
+      <!-- Brand -->
+      <a href="#" class="flex items-center gap-2.5 group shrink-0">
+        <svg class="w-7 h-7 group-hover:scale-110 transition-transform" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+          <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+          <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+        </svg>
+        <span class="font-display font-semibold tracking-tight text-white text-sm">REXORA <span class="text-brandPurple font-light tracking-[0.22em] text-[10px]">SYSTEMS</span></span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav id="primaryNav" class="hidden md:flex items-center relative">
+        <a href="#value"       data-spy="value"       class="nav-pill">Value</a>
+        <a href="#devices"     data-spy="devices"     class="nav-pill">Showcase</a>
+        <a href="#work"        data-spy="work"        class="nav-pill">Work</a>
+        <a href="#clients"     data-spy="clients"     class="nav-pill">Clients</a>
+        <a href="#testimonial" data-spy="testimonial" class="nav-pill">Stories</a>
+        <a href="#contact"     data-spy="contact"     class="nav-pill">Contact</a>
+        <span id="navIndicator" aria-hidden="true"></span>
+      </nav>
+
+      <!-- CTA + mobile toggle -->
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="https://wa.me/2348109561020?text=Hi%20John%2C%20I%27d%20like%20a%20free%20demo%20from%20Rexora%20Systems."
+           class="hidden sm:inline-flex items-center gap-2 bg-brandGreen text-ink font-semibold px-4 py-2 rounded-full text-xs hover:scale-105 hover:shadow-glow transition">
+           Get Free Demo
+        </a>
+        <button id="mobileToggle" aria-label="Toggle menu" aria-expanded="false" class="md:hidden p-2 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition">
+          <svg id="iconMenu"  class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+          <svg id="iconClose" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden mt-2 hidden rounded-2xl border border-white/10 bg-ink/90 backdrop-blur-xl overflow-hidden">
+      <a href="#value"       class="mobile-link" data-spy-m="value">Value</a>
+      <a href="#devices"     class="mobile-link" data-spy-m="devices">Showcase</a>
+      <a href="#work"        class="mobile-link" data-spy-m="work">Work</a>
+      <a href="#clients"     class="mobile-link" data-spy-m="clients">Clients</a>
+      <a href="#testimonial" class="mobile-link" data-spy-m="testimonial">Stories</a>
+      <a href="#contact"     class="mobile-link" data-spy-m="contact">Contact</a>
+      <a href="https://wa.me/2348109561020?text=Hi%20John%2C%20I%27d%20like%20a%20free%20demo%20from%20Rexora%20Systems."
+         class="block px-5 py-3.5 m-3 rounded-full bg-brandGreen text-ink font-semibold text-sm text-center hover:brightness-110 transition">
+         Get Free Demo
+      </a>
+    </div>
   </div>
 </header>
 
@@ -724,6 +753,10 @@
           <li class="flex gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-brandPurple"></span>Livestream & sermon library</li>
           <li class="flex gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-brandPurple"></span>Member registration & event sign-ups</li>
         </ul>
+        <a href="projects/church-website/index.html" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mt-8 px-5 py-3 rounded-xl bg-brandPurple text-white font-semibold text-sm hover:brightness-110 transition shadow-glow">
+          View live demo
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
       </div>
     </div>
 
@@ -749,6 +782,10 @@
           <li class="flex gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-brandGreen"></span>Auto reminders by SMS & email</li>
           <li class="flex gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-brandGreen"></span>Client history & revenue insights</li>
         </ul>
+        <a href="projects/booking-system/index.html" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mt-8 px-5 py-3 rounded-xl bg-brandGreen text-ink font-semibold text-sm hover:brightness-110 transition shadow-glow">
+          View live demo
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
       </div>
 
       <!-- Booking UI mockup -->

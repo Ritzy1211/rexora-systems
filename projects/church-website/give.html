@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Give — Christian Jewish Believers</title>
+  <meta name="description" content="Partner with us through your generous giving. Secure online donations." />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { ink: '#0a0a0f', subink: '#15151c', brandPurple: '#a78bfa', brandBlue: '#60a5fa', brandGreen: '#4ade80' },
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'], display: ['Playfair Display','serif'] }
+    }}}
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-ink text-gray-200 font-sans">
+
+  <!-- Demo banner -->
+  <div class="bg-gradient-to-r from-brandPurple/20 via-brandBlue/15 to-brandPurple/20 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between text-xs">
+      <div class="text-gray-300"><span class="font-semibold text-white">Live Demo</span><span class="text-gray-500 mx-2">·</span><span class="text-gray-400">Christian Jewish Believers</span></div>
+      <a href="../../index.html" class="text-brandPurple hover:text-white transition flex items-center gap-1.5">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Rexora
+      </a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-ink/85 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brandPurple to-brandBlue flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-5 h-5 text-white" fill="currentColor"><path d="M12 2L9.5 7H4l4 4-1.5 6L12 14l5.5 3L16 11l4-4h-5.5z"/></svg>
+        </div>
+        <div>
+          <div class="font-display font-bold text-white text-sm leading-tight">Christian Jewish</div>
+          <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em]">Believers</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="cb-link">Home</a>
+        <a href="sermons.html" class="cb-link">Sermons</a>
+        <a href="index.html#beliefs" class="cb-link">Beliefs</a>
+        <a href="index.html#visit" class="cb-link">Visit</a>
+        <a href="give.html" class="cb-link is-active">Give</a>
+      </nav>
+      <button id="mobileToggle" aria-label="Menu" class="md:hidden p-2 rounded-md text-gray-300 hover:text-white">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/5">
+      <a href="index.html" class="mob-link">Home</a>
+      <a href="sermons.html" class="mob-link">Sermons</a>
+      <a href="index.html#beliefs" class="mob-link">Beliefs</a>
+      <a href="index.html#visit" class="mob-link">Visit</a>
+      <a href="give.html" class="mob-link is-active">Give</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero-bg">
+    <div class="relative max-w-3xl mx-auto px-6 lg:px-8 pt-16 pb-10 text-center">
+      <div class="text-xs uppercase tracking-[0.25em] text-brandPurple mb-4">Partner With Us</div>
+      <h1 class="font-display text-5xl lg:text-6xl text-white font-bold leading-tight">Give cheerfully.</h1>
+      <p class="text-gray-400 mt-5 leading-relaxed">"Each one must give as he has decided in his heart, not reluctantly or under compulsion, for God loves a cheerful giver." <span class="text-gray-600">— 2 Cor 9:7</span></p>
+    </div>
+  </section>
+
+  <!-- Give form -->
+  <section class="max-w-3xl mx-auto px-6 lg:px-8 pb-24">
+
+    <!-- Step 1: Form -->
+    <div id="giveStep1" class="bg-subink/80 border border-white/5 rounded-2xl p-6 lg:p-10 shadow-2xl">
+      <form id="giveForm" class="space-y-7">
+
+        <!-- Frequency -->
+        <div>
+          <label class="text-xs text-gray-500 uppercase tracking-wider mb-3 block">Frequency</label>
+          <div class="grid grid-cols-2 gap-2 p-1 bg-white/[0.04] rounded-xl">
+            <label class="cursor-pointer">
+              <input type="radio" name="freq" value="one-time" class="peer sr-only" checked />
+              <div class="text-center py-2.5 rounded-lg text-sm text-gray-400 peer-checked:bg-gradient-to-br peer-checked:from-brandPurple/30 peer-checked:to-brandBlue/20 peer-checked:text-white transition">One-time</div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="freq" value="monthly" class="peer sr-only" />
+              <div class="text-center py-2.5 rounded-lg text-sm text-gray-400 peer-checked:bg-gradient-to-br peer-checked:from-brandPurple/30 peer-checked:to-brandBlue/20 peer-checked:text-white transition">Monthly</div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Amount -->
+        <div>
+          <label class="text-xs text-gray-500 uppercase tracking-wider mb-3 block">Amount</label>
+          <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-3">
+            <button type="button" class="amount-chip" data-amount="20">$20</button>
+            <button type="button" class="amount-chip" data-amount="50">$50</button>
+            <button type="button" class="amount-chip is-active" data-amount="100">$100</button>
+            <button type="button" class="amount-chip" data-amount="250">$250</button>
+            <button type="button" class="amount-chip" data-amount="500">$500</button>
+            <button type="button" class="amount-chip" data-amount="1000">$1,000</button>
+          </div>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+            <input id="amountValue" type="number" min="1" value="100" class="cb-input pl-7" placeholder="Custom amount" />
+          </div>
+        </div>
+
+        <!-- Fund -->
+        <div>
+          <label class="text-xs text-gray-500 uppercase tracking-wider mb-3 block">Designate to</label>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" class="fund-pill is-active" data-fund="General Fund">General Fund</button>
+            <button type="button" class="fund-pill" data-fund="Building Project">Building Project</button>
+            <button type="button" class="fund-pill" data-fund="Missions">Missions</button>
+            <button type="button" class="fund-pill" data-fund="Benevolence">Benevolence</button>
+            <button type="button" class="fund-pill" data-fund="Youth Ministry">Youth Ministry</button>
+          </div>
+        </div>
+
+        <!-- Donor info -->
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-gray-500 mb-1.5 block">Full name</label>
+            <input type="text" required class="cb-input" placeholder="Jane Cohen" />
+          </div>
+          <div>
+            <label class="text-xs text-gray-500 mb-1.5 block">Email (for receipt)</label>
+            <input type="email" required class="cb-input" placeholder="jane@example.com" />
+          </div>
+        </div>
+
+        <!-- Card -->
+        <div>
+          <label class="text-xs text-gray-500 mb-1.5 block">Card details</label>
+          <div class="space-y-2">
+            <input type="text" value="4242 4242 4242 4242" class="cb-input font-mono tracking-wider" />
+            <div class="grid grid-cols-2 gap-2">
+              <input type="text" value="12 / 28" class="cb-input font-mono" />
+              <input type="text" value="123" class="cb-input font-mono" placeholder="CVC" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="rounded-xl bg-gradient-to-br from-brandPurple/15 to-brandBlue/10 border border-white/10 p-5 space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-gray-400">Amount</span><span id="summaryAmount" class="text-white font-semibold">$100</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">Fund</span><span id="summaryFund" class="text-white">General Fund</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">Frequency</span><span id="summaryFreq" class="text-white">One-time gift</span></div>
+        </div>
+
+        <button type="submit" class="btn-primary w-full !py-4 text-base">
+          Give <span id="submitAmount">$100</span> securely
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <div class="text-center text-[11px] text-gray-500">
+          🔒 Secure · Encrypted · Receipt emailed instantly
+        </div>
+      </form>
+    </div>
+
+    <!-- Step 2: Processing -->
+    <div id="giveStep2" class="hidden bg-subink/80 border border-white/5 rounded-2xl p-12 text-center shadow-2xl">
+      <div class="spinner mx-auto mb-5"></div>
+      <h3 class="font-display text-xl text-white mb-1">Processing your gift…</h3>
+      <p class="text-sm text-gray-500">Securely contacting your bank</p>
+    </div>
+
+    <!-- Step 3: Success -->
+    <div id="giveStep3" class="hidden bg-subink/80 border border-white/5 rounded-2xl p-10 text-center shadow-2xl">
+      <div class="w-20 h-20 mx-auto rounded-full bg-brandGreen/15 flex items-center justify-center mb-6">
+        <svg class="w-10 h-10 text-brandGreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3 class="font-display text-3xl text-white font-bold mb-3">Thank you.</h3>
+      <p class="text-gray-400 leading-relaxed max-w-md mx-auto mb-8">
+        Your <span id="successFreq" class="text-white">one-time</span> gift of <span id="successAmount" class="text-brandGreen font-semibold">$100</span> to <span id="successFund" class="text-white">General Fund</span> has been received. A receipt is on its way to your inbox.
+      </p>
+      <div class="inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-white/[0.04] border border-white/5 mb-8">
+        <span class="text-xs text-gray-500">Receipt #</span>
+        <span id="receiptId" class="text-sm text-white font-mono">CJB-000000</span>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="index.html" class="btn-secondary">Back to Home</a>
+        <button id="giveAgain" class="btn-primary">Give Again</button>
+      </div>
+    </div>
+
+    <!-- Trust strip -->
+    <div class="mt-10 grid sm:grid-cols-3 gap-4 text-center text-xs text-gray-500">
+      <div class="flex items-center justify-center gap-2">
+        <svg class="w-4 h-4 text-brandPurple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Bank-grade encryption
+      </div>
+      <div class="flex items-center justify-center gap-2">
+        <svg class="w-4 h-4 text-brandBlue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Instant tax receipt
+      </div>
+      <div class="flex items-center justify-center gap-2">
+        <svg class="w-4 h-4 text-brandGreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12A10 10 0 1 1 12 2v10z"/></svg>
+        100% goes to ministry
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-8 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-600">
+      <div>© 2026 Christian Jewish Believers. All rights reserved.</div>
+      <div>Built by <a href="../../index.html" class="text-brandPurple hover:text-white">Rexora Systems</a></div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast"><span class="w-2 h-2 rounded-full bg-brandGreen"></span><span id="toastMsg">Saved</span></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+/* Christian Jewish Believers — demo site styles */
+
+* { box-sizing: border-box; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #0a0a0f; }
+::-webkit-scrollbar-thumb { background: #2a2a36; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a46; }
+
+html { scroll-behavior: smooth; }
+
+/* ── Nav links ── */
+.cb-link {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  padding: 0.5rem 0.25rem;
+  position: relative;
+  transition: color 0.2s;
+}
+.cb-link:hover { color: #fff; }
+.cb-link.is-active { color: #fff; }
+.cb-link.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #a78bfa, #60a5fa);
+}
+
+.mob-link {
+  display: block;
+  padding: 0.85rem 1.25rem;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.mob-link:hover { background: rgba(255,255,255,0.04); color: #fff; }
+.mob-link.is-active { background: rgba(167,139,250,0.08); color: #fff; }
+
+/* ── Star of David / brand mark ── */
+.brand-mark {
+  background: linear-gradient(135deg, #a78bfa, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Reveal on scroll ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* ── Toast ── */
+#toast {
+  position: fixed;
+  bottom: 1.5rem; right: 1.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: #15151c;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+  font-size: 0.875rem; color: #fff;
+  display: flex; align-items: center; gap: 0.75rem;
+  opacity: 0; transform: translateY(12px);
+  pointer-events: none;
+  transition: all 0.25s;
+  z-index: 100;
+}
+#toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+/* ── Spinner ── */
+.spinner {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.08);
+  border-top-color: #a78bfa;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  z-index: 80;
+  display: none;
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  padding: 1rem;
+}
+.modal-overlay.show { display: flex; }
+.modal-card {
+  width: 100%; max-width: 28rem;
+  background: #15151c;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+  animation: modalIn 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Form inputs (give page) ── */
+.cb-input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.9rem;
+  color: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.cb-input:focus {
+  outline: none;
+  border-color: rgba(167,139,250,0.6);
+  box-shadow: 0 0 0 3px rgba(167,139,250,0.18);
+}
+
+/* ── Amount chips ── */
+.amount-chip {
+  padding: 0.85rem;
+  border-radius: 0.65rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.amount-chip:hover { background: rgba(167,139,250,0.08); border-color: rgba(167,139,250,0.2); }
+.amount-chip.is-active {
+  background: linear-gradient(135deg, rgba(167,139,250,0.25), rgba(96,165,250,0.18));
+  border-color: rgba(167,139,250,0.5);
+  color: #fff;
+}
+
+/* ── Fund pill ── */
+.fund-pill {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #cbd5e1;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.fund-pill:hover { color: #fff; }
+.fund-pill.is-active {
+  background: rgba(167,139,250,0.15);
+  border-color: rgba(167,139,250,0.4);
+  color: #fff;
+}
+
+/* ── Sermon card ── */
+.sermon-card {
+  background: #15151c;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.25s, border-color 0.25s;
+  cursor: pointer;
+}
+.sermon-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(167,139,250,0.2);
+}
+.sermon-thumb {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, rgba(167,139,250,0.35), rgba(96,165,250,0.35));
+  display: flex; align-items: center; justify-content: center;
+}
+.sermon-play {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.95);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s;
+}
+.sermon-card:hover .sermon-play { transform: scale(1.1); }
+.sermon-play::after {
+  content: '';
+  width: 0; height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid #0a0a0f;
+  margin-left: 3px;
+}
+.sermon-duration {
+  position: absolute;
+  bottom: 0.5rem; right: 0.5rem;
+  background: rgba(0,0,0,0.7);
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.25rem;
+  font-size: 0.65rem;
+  color: #fff;
+  font-weight: 600;
+}
+.sermon-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(167,139,250,0.15);
+  color: #a78bfa;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Series filter ── */
+.filter-btn {
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.filter-btn:hover { color: #fff; }
+.filter-btn.is-active {
+  background: linear-gradient(135deg, rgba(167,139,250,0.2), rgba(96,165,250,0.15));
+  border-color: rgba(167,139,250,0.4);
+  color: #fff;
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #a78bfa, #60a5fa);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: filter 0.15s, transform 0.15s;
+  border: none; cursor: pointer;
+}
+.btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 0.75rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.15s;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+/* ── Hero gradient ── */
+.hero-bg {
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px 500px at 80% 0%, rgba(167,139,250,0.18), transparent 60%),
+    radial-gradient(700px 400px at 0% 60%, rgba(96,165,250,0.14), transparent 60%);
+  pointer-events: none;
+}
+
+/* Live pulse */
+.live-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 0 0 rgba(239,68,68,0.6);
+  animation: livePulse 1.6s infinite;
+}
+@keyframes livePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(239,68,68,0.6); }
+  70%  { box-shadow: 0 0 0 10px rgba(239,68,68,0); }
+  100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+}
