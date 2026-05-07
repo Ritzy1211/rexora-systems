@@ -3,12 +3,58 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Rexora Systems — John Paulson | Web Developer & Business Automation Specialist</title>
-<meta name="description" content="Rexora Systems designs digital systems that increase revenue and automate operations for schools, churches, and businesses." />
+<title>Rexora Systems — Digital Systems That Grow Your Business</title>
+<meta name="description" content="Rexora Systems builds modern websites and automation platforms for schools, churches, and businesses — designed to attract more customers, save time, and elevate your brand online." />
+<meta name="keywords" content="web developer Nigeria, business automation, school management system, church website, booking system, John Paulson, Rexora Systems, custom websites Lagos" />
+<meta name="author" content="John Paulson" />
+<meta name="theme-color" content="#0a0a0f" />
+<link rel="canonical" href="https://rexora-systems.vercel.app/" />
+
+<!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Rexora Systems" />
+<meta property="og:url" content="https://rexora-systems.vercel.app/" />
+<meta property="og:title" content="Rexora Systems — Digital Systems That Grow Your Business" />
+<meta property="og:description" content="Modern websites and automation platforms for schools, churches, and businesses. Built to attract customers, save time, and elevate your brand." />
+<meta property="og:image" content="https://rexora-systems.vercel.app/assets/images/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Rexora Systems — built by John Paulson" />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Rexora Systems — Digital Systems That Grow Your Business" />
+<meta name="twitter:description" content="Modern websites and automation platforms for schools, churches, and businesses." />
+<meta name="twitter:image" content="https://rexora-systems.vercel.app/assets/images/og-image.png" />
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg" />
-<link rel="icon" type="image/png" href="assets/logos/favicon.png" />
+<link rel="alternate icon" type="image/png" href="assets/logos/favicon.png" />
+<link rel="apple-touch-icon" href="assets/logos/favicon.png" />
+
+<!-- Structured Data: Person + Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Rexora Systems",
+  "url": "https://rexora-systems.vercel.app/",
+  "logo": "https://rexora-systems.vercel.app/assets/logos/favicon.svg",
+  "founder": {
+    "@type": "Person",
+    "name": "John Paulson",
+    "jobTitle": "Web Developer & Business Automation Specialist"
+  },
+  "description": "Rexora Systems designs digital systems that increase revenue and automate operations for schools, churches, and businesses.",
+  "sameAs": ["https://github.com/Ritzy1211"],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+234-810-956-1020",
+    "contactType": "Customer Service",
+    "email": "hello@rexorasystems.com"
+  }
+}
+</script>
 
 <!-- Tailwind CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -1043,6 +1089,72 @@
       <a href="mailto:hello@rexorasystems.com" class="px-9 py-4 rounded-full border border-white/15 text-white font-medium hover:bg-white/5 hover:border-white/30 transition">
         hello@rexorasystems.com
       </a>
+    </div>
+
+    <!-- Or send a message -->
+    <div class="mt-16 max-w-2xl mx-auto">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="flex-1 h-px bg-white/10"></div>
+        <span class="text-xs uppercase tracking-[0.25em] text-gray-500">Or send a message</span>
+        <div class="flex-1 h-px bg-white/10"></div>
+      </div>
+
+      <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST"
+            class="bg-white/[0.02] backdrop-blur border border-white/5 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-4 text-left">
+        <input type="hidden" name="_subject" value="New lead from Rexora Systems portfolio" />
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs uppercase tracking-wider text-gray-500 mb-1.5 block">Your name</label>
+            <input type="text" name="name" required placeholder="Jane Cohen"
+                   class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/8 text-white placeholder:text-gray-600 focus:outline-none focus:border-brandGreen focus:bg-brandGreen/[0.03] transition" />
+          </div>
+          <div>
+            <label class="text-xs uppercase tracking-wider text-gray-500 mb-1.5 block">Email</label>
+            <input type="email" name="email" required placeholder="jane@company.com"
+                   class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/8 text-white placeholder:text-gray-600 focus:outline-none focus:border-brandGreen focus:bg-brandGreen/[0.03] transition" />
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs uppercase tracking-wider text-gray-500 mb-1.5 block">What do you need built?</label>
+          <select name="project_type" required
+                  class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/8 text-white focus:outline-none focus:border-brandGreen transition">
+            <option value="" class="bg-ink">Pick one…</option>
+            <option value="School Management System" class="bg-ink">School management system</option>
+            <option value="Church Platform" class="bg-ink">Church website / platform</option>
+            <option value="Booking System" class="bg-ink">Business booking system</option>
+            <option value="Custom Website" class="bg-ink">Custom website</option>
+            <option value="Automation / Other" class="bg-ink">Automation / something else</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-xs uppercase tracking-wider text-gray-500 mb-1.5 block">Tell me about your project</label>
+          <textarea name="message" rows="4" required placeholder="Goals, timeline, budget range — anything you've already thought about."
+                    class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/8 text-white placeholder:text-gray-600 focus:outline-none focus:border-brandGreen focus:bg-brandGreen/[0.03] transition resize-none"></textarea>
+        </div>
+
+        <button type="submit" id="contactSubmit"
+                class="w-full px-6 py-4 rounded-xl bg-brandGreen text-ink font-semibold hover:scale-[1.01] hover:shadow-glow transition flex items-center justify-center gap-2">
+          <span id="contactBtnText">Send message</span>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <p class="text-[11px] text-gray-500 text-center">
+          Replies typically within 4 hours. No spam, ever.
+        </p>
+      </form>
+
+      <!-- Success state -->
+      <div id="contactSuccess" class="hidden bg-brandGreen/10 border border-brandGreen/30 rounded-2xl p-8 text-center">
+        <div class="w-14 h-14 mx-auto rounded-full bg-brandGreen/20 flex items-center justify-center mb-4">
+          <svg class="w-7 h-7 text-brandGreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3 class="text-2xl font-semibold text-white mb-2">Message sent.</h3>
+        <p class="text-gray-400">Thanks — I'll get back to you within 4 hours.</p>
+      </div>
     </div>
   </div>
 </section>

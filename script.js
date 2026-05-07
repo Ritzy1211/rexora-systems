@@ -232,3 +232,40 @@ drawIcons.forEach((svg) => drawObserver.observe(svg));
     sessionStorage.setItem(STORAGE_KEY, '1');
   });
 })();
+
+/* ===========================================================
+   Contact form (Formspree AJAX)
+   =========================================================== */
+(() => {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  const success = document.getElementById('contactSuccess');
+  const btn = document.getElementById('contactSubmit');
+  const btnText = document.getElementById('contactBtnText');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (form.action.includes('YOUR_FORM_ID')) {
+      btnText.textContent = 'Demo mode — wire up Formspree';
+      btn.disabled = true;
+      btn.style.opacity = '0.6';
+      return;
+    }
+    btn.disabled = true;
+    btnText.textContent = 'Sending…';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.classList.add('hidden');
+        success.classList.remove('hidden');
+      } else { throw new Error('send failed'); }
+    } catch (err) {
+      btnText.textContent = 'Couldn\u2019t send \u2014 try WhatsApp instead';
+      btn.style.background = '#f87171';
+    }
+  });
+})();

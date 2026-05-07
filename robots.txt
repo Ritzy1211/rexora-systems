@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rexora-systems.vercel.app/sitemap.xml
