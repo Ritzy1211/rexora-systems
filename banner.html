@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Rexora LinkedIn Banner Generator</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    background: #18181b;
+    color: #fff;
+    padding: 32px;
+    min-height: 100vh;
+  }
+  h1 { font-size: 22px; margin-bottom: 6px; }
+  p.muted { color: #a1a1aa; margin-bottom: 24px; font-size: 13px; }
+
+  .stack { display: flex; flex-direction: column; gap: 36px; }
+  .card { display: flex; flex-direction: column; gap: 10px; }
+  .label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #d4d4d8;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* LinkedIn company banner is 1128 x 191 (rendered) but recommended upload 1536 x 260 for crispness.
+     We render at 1584 x 270 (3x scale of 528x90 base, gives high DPI). */
+  .banner {
+    width: 1584px;
+    height: 270px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-family: "Poppins", "Segoe UI", sans-serif;
+  }
+
+  /* Preview at 0.5 scale so it fits on screen */
+  .preview {
+    width: 792px;
+    height: 135px;
+    overflow: hidden;
+    border: 1px solid #3f3f46;
+    border-radius: 8px;
+  }
+  .preview .scaler { transform: scale(0.5); transform-origin: top left; }
+
+  /* ░░░ A — DARK GRADIENT WITH NEON ░░░ */
+  .v-a {
+    background:
+      radial-gradient(60% 90% at 0% 50%, rgba(74,222,128,0.22), transparent 60%),
+      radial-gradient(50% 90% at 50% 100%, rgba(96,165,250,0.20), transparent 60%),
+      radial-gradient(60% 90% at 100% 0%, rgba(167,139,250,0.25), transparent 60%),
+      #0a0a0f;
+  }
+  .v-a::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+  .v-a .content {
+    position: relative;
+    z-index: 2;
+    padding: 0 110px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .v-a .left { display: flex; align-items: center; gap: 28px; }
+  .v-a svg.mark { width: 96px; height: 96px; flex-shrink: 0; }
+  .v-a .text-block .brand {
+    font-weight: 800;
+    font-size: 36px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 14px;
+  }
+  .v-a .text-block .brand .sub {
+    color: #a78bfa;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.5em;
+    margin-left: 12px;
+  }
+  .v-a .text-block .tag {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .v-a .text-block .tag .accent {
+    background: linear-gradient(90deg, #4ade80, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .v-a .right {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: flex-end;
+  }
+  .v-a .pills {
+    display: flex; gap: 10px;
+  }
+  .v-a .pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px);
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #e4e4e7;
+  }
+  .v-a .domain {
+    font-size: 22px;
+    font-weight: 600;
+    color: #4ade80;
+    letter-spacing: 0.02em;
+  }
+
+  /* ░░░ B — MINIMAL DARK ░░░ */
+  .v-b {
+    background:
+      radial-gradient(80% 120% at 100% 50%, rgba(96,165,250,0.18), transparent 60%),
+      #0a0a0f;
+  }
+  .v-b .content {
+    position: relative;
+    padding: 0 140px;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    width: 100%;
+  }
+  .v-b svg.mark { width: 80px; height: 80px; flex-shrink: 0; }
+  .v-b .text {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .v-b .text .h {
+    font-weight: 800;
+    font-size: 56px;
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+  .v-b .text .h .accent {
+    background: linear-gradient(90deg, #4ade80, #60a5fa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .v-b .text .sub {
+    color: #a1a1aa;
+    font-size: 22px;
+    font-weight: 400;
+  }
+  .v-b .text .sub strong { color: #4ade80; font-weight: 600; }
+
+  /* ░░░ C — BOLD STATEMENT ░░░ */
+  .v-c {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+    position: relative;
+  }
+  .v-c::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(74,222,128,0.35), transparent 35%),
+      radial-gradient(circle at 80% 70%, rgba(167,139,250,0.30), transparent 35%);
+    filter: blur(40px);
+  }
+  .v-c .content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    padding: 0 80px;
+  }
+  .v-c .top-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+  .v-c svg.mark { width: 56px; height: 56px; }
+  .v-c .top-row .brand {
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+  }
+  .v-c .top-row .brand .sub {
+    color: #a78bfa;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    margin-left: 10px;
+  }
+  .v-c .headline {
+    font-size: 54px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+  .v-c .headline .accent {
+    background: linear-gradient(90deg, #4ade80, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .v-c .domain {
+    margin-top: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #4ade80;
+    letter-spacing: 0.05em;
+  }
+
+  /* Tip bubble */
+  .tip {
+    margin-top: 32px;
+    padding: 18px;
+    background: #27272a;
+    border-radius: 10px;
+    max-width: 820px;
+  }
+  ol { margin: 14px 0 0 22px; line-height: 1.8; }
+  code {
+    background: #3f3f46;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<h1>Rexora Systems — LinkedIn Banner Generator</h1>
+<p class="muted">
+  Each banner is rendered at <code>1584 × 270</code> (LinkedIn's high-DPI recommended size for company pages).
+  Pick your favorite, capture it via DevTools, and upload to the LinkedIn company page banner slot.
+</p>
+
+<div class="stack">
+
+  <!-- ░░░ A — Brand mark left, pills right ░░░ -->
+  <div class="card">
+    <div class="label">A · Full identity (recommended) — mark + tagline + service pills + domain</div>
+    <div class="preview"><div class="scaler">
+      <div class="banner v-a" id="banner-a">
+        <div class="content">
+          <div class="left">
+            <svg class="mark" viewBox="0 0 64 64" fill="none">
+              <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+              <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+              <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+            </svg>
+            <div class="text-block">
+              <div class="brand">REXORA<span class="sub">SYSTEMS</span></div>
+              <div class="tag">Digital systems that<br/><span class="accent">grow your business.</span></div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="pills">
+              <div class="pill">🎓 Schools</div>
+              <div class="pill">⛪ Churches</div>
+              <div class="pill">📅 Bookings</div>
+            </div>
+            <div class="domain">→ rexorasystems.com</div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- ░░░ B — Big bold tagline ░░░ -->
+  <div class="card">
+    <div class="label">B · Bold tagline — minimal, headline-driven</div>
+    <div class="preview"><div class="scaler">
+      <div class="banner v-b" id="banner-b">
+        <div class="content">
+          <svg class="mark" viewBox="0 0 64 64" fill="none">
+            <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+            <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+            <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+          </svg>
+          <div class="text">
+            <div class="h">Smart systems. <span class="accent">Real growth.</span></div>
+            <div class="sub">Web, automation & dashboards built for <strong>schools, churches & businesses.</strong></div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- ░░░ C — Centered bold statement ░░░ -->
+  <div class="card">
+    <div class="label">C · Centered statement — agency-style, premium feel</div>
+    <div class="preview"><div class="scaler">
+      <div class="banner v-c" id="banner-c">
+        <div class="content">
+          <div class="top-row">
+            <svg class="mark" viewBox="0 0 64 64" fill="none">
+              <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+              <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+              <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+            </svg>
+            <div class="brand">REXORA<span class="sub">SYSTEMS</span></div>
+          </div>
+          <div class="headline">We build <span class="accent">digital systems</span> that grow your business.</div>
+          <div class="domain">rexorasystems.com</div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+</div>
+
+<div class="tip">
+  <strong>How to download:</strong>
+  <ol>
+    <li>Open this page → press <code>F12</code> to open DevTools</li>
+    <li>Press <code>Ctrl + Shift + P</code> in DevTools</li>
+    <li>Type <code>Capture node screenshot</code> and press Enter</li>
+    <li>In the Elements panel, click on the <code>&lt;div class="banner v-a"&gt;</code> (or <code>v-b</code> / <code>v-c</code>) element</li>
+    <li>PNG downloads at full <code>1584 × 270</code> resolution → upload to LinkedIn company page banner slot</li>
+  </ol>
+  <p style="margin-top: 14px; color: #a1a1aa; font-size: 13px;">
+    💡 <strong>Recommended:</strong> Banner <code>A</code> — it shows your mark, tagline, all 3 service categories, and your domain.
+    LinkedIn visitors get the full pitch in one glance.
+  </p>
+  <p style="margin-top: 6px; color: #a1a1aa; font-size: 13px;">
+    📐 LinkedIn crops banners differently on mobile vs desktop. Critical content stays in the center 60% — all 3 banners are designed with that safe zone.
+  </p>
+</div>
+
+</body>
+</html>
