@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Rexora Logo Generator</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    background: #18181b;
+    color: #fff;
+    padding: 32px;
+    min-height: 100vh;
+  }
+  h1 { font-size: 22px; margin-bottom: 6px; }
+  p.muted { color: #a1a1aa; margin-bottom: 24px; font-size: 13px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 28px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #d4d4d8;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  /* The actual logo canvases — all 800x800 */
+  .logo {
+    width: 800px;
+    height: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .logo svg.mark { width: 60%; height: 60%; }
+  .logo .wordmark {
+    position: absolute;
+    bottom: 14%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  .logo .wordmark .name {
+    font-family: "Poppins", "Segoe UI", sans-serif;
+    font-weight: 800;
+    font-size: 84px;
+    letter-spacing: -0.02em;
+  }
+  .logo .wordmark .sub {
+    font-family: "Poppins", "Segoe UI", sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    letter-spacing: 0.45em;
+    margin-top: 6px;
+  }
+
+  /* Variant A — Mark only on dark gradient */
+  .v-dark-mark {
+    background:
+      radial-gradient(60% 60% at 50% 40%, rgba(74,222,128,0.18), transparent 70%),
+      radial-gradient(60% 60% at 80% 80%, rgba(167,139,250,0.18), transparent 70%),
+      #0a0a0f;
+  }
+  /* Variant B — Mark only on white */
+  .v-light-mark {
+    background: #ffffff;
+  }
+  /* Variant C — Mark + wordmark on dark */
+  .v-dark-full {
+    background:
+      radial-gradient(60% 60% at 50% 30%, rgba(96,165,250,0.18), transparent 70%),
+      #0a0a0f;
+  }
+  .v-dark-full svg.mark { width: 38%; height: 38%; transform: translateY(-60px); }
+  .v-dark-full .wordmark .name { color: #fff; }
+  .v-dark-full .wordmark .sub { color: #a78bfa; }
+  /* Variant D — Mark + wordmark on white */
+  .v-light-full {
+    background: #ffffff;
+  }
+  .v-light-full svg.mark { width: 38%; height: 38%; transform: translateY(-60px); }
+  .v-light-full .wordmark .name { color: #0a0a0f; }
+  .v-light-full .wordmark .sub { color: #6b21a8; }
+
+  .preview-scale { transform: scale(0.4); transform-origin: top left; width: 800px; height: 800px; }
+  .frame { width: 320px; height: 320px; overflow: hidden; border: 1px solid #3f3f46; border-radius: 8px; }
+
+  code {
+    background: #27272a;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  ol { margin: 16px 0 0 20px; line-height: 1.7; }
+  ol li code { font-size: 11px; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<h1>Rexora Systems — Logo Generator</h1>
+<p class="muted">
+  Each logo is rendered at <code>800×800</code> (LinkedIn-ready). To download a variant:
+  open DevTools (F12) → press <code>Ctrl+Shift+P</code> → type
+  <strong>"Capture node screenshot"</strong> → click the <code>.logo</code> div you want.
+</p>
+
+<div class="grid">
+
+  <!-- ░░░ A — Mark on Dark ░░░ -->
+  <div class="card">
+    <div class="label">A · Mark / Dark (recommended for LinkedIn)</div>
+    <div class="frame"><div class="preview-scale">
+      <div class="logo v-dark-mark" id="logo-a">
+        <svg class="mark" viewBox="0 0 64 64" fill="none">
+          <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+          <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+          <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+        </svg>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- ░░░ B — Mark on Light ░░░ -->
+  <div class="card">
+    <div class="label">B · Mark / Light</div>
+    <div class="frame"><div class="preview-scale">
+      <div class="logo v-light-mark" id="logo-b">
+        <svg class="mark" viewBox="0 0 64 64" fill="none">
+          <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+          <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+          <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+        </svg>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- ░░░ C — Mark + Wordmark on Dark ░░░ -->
+  <div class="card">
+    <div class="label">C · Mark + Wordmark / Dark</div>
+    <div class="frame"><div class="preview-scale">
+      <div class="logo v-dark-full" id="logo-c">
+        <svg class="mark" viewBox="0 0 64 64" fill="none">
+          <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+          <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+          <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+        </svg>
+        <div class="wordmark">
+          <div class="name">REXORA</div>
+          <div class="sub">SYSTEMS</div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- ░░░ D — Mark + Wordmark on Light ░░░ -->
+  <div class="card">
+    <div class="label">D · Mark + Wordmark / Light</div>
+    <div class="frame"><div class="preview-scale">
+      <div class="logo v-light-full" id="logo-d">
+        <svg class="mark" viewBox="0 0 64 64" fill="none">
+          <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+          <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+          <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+        </svg>
+        <div class="wordmark">
+          <div class="name">REXORA</div>
+          <div class="sub">SYSTEMS</div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+</div>
+
+<div style="margin-top: 32px; padding: 18px; background: #27272a; border-radius: 10px; max-width: 720px;">
+  <strong>How to download:</strong>
+  <ol>
+    <li>Open this page → press <code>F12</code> to open DevTools</li>
+    <li>Press <code>Ctrl+Shift+P</code> in DevTools</li>
+    <li>Type <code>Capture node screenshot</code> and press Enter</li>
+    <li>Click the <code>&lt;div class="logo v-dark-mark"&gt;</code> in the Elements panel (use the pointer icon to click directly on the variant you want — pick from the small previews above)</li>
+    <li>PNG downloads at full <code>800×800</code> resolution → upload to LinkedIn</li>
+  </ol>
+  <p style="margin-top: 12px; color: #a1a1aa; font-size: 13px;">
+    💡 <strong>Recommended for LinkedIn company logo:</strong> <code>Variant A</code> (mark only on dark gradient) — clean, recognizable at small sizes, works against LinkedIn's white feed.
+  </p>
+</div>
+
+</body>
+</html>
