@@ -225,3 +225,85 @@ body {
   color: #a1a1aa;
   font-weight: 500;
 }
+
+/* ════════════ NEON REVOLVE (lightning border) ════════════ */
+@property --neon-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.neon-revolve {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Crisp lightning ring riding the edge */
+.neon-revolve::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--neon-angle),
+    transparent 0%,
+    rgba(74, 222, 128, 0.0) 4%,
+    #4ade80 9%,
+    #60a5fa 15%,
+    #ffffff 20%,
+    #a78bfa 26%,
+    #4ade80 34%,
+    transparent 50%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: neon-spin 4s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Soft outer halo bloom */
+.neon-revolve::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--neon-angle),
+    transparent 0%,
+    #4ade80 10%,
+    #60a5fa 18%,
+    #ffffff 22%,
+    #a78bfa 28%,
+    #4ade80 38%,
+    transparent 55%,
+    transparent 100%
+  );
+  filter: blur(16px);
+  opacity: 0.55;
+  animation: neon-spin 4s linear infinite;
+  pointer-events: none;
+  z-index: -2;
+}
+
+@keyframes neon-spin {
+  to { --neon-angle: 360deg; }
+}
+
+/* Phone runs in reverse for a richer look */
+.neon-revolve--reverse::before,
+.neon-revolve--reverse::after {
+  animation-direction: reverse;
+  animation-duration: 5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-revolve::before,
+  .neon-revolve::after { animation: none; opacity: 0.35; }
+}
+
