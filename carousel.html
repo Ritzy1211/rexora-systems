@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Rexora — Auto Fee Reminders Carousel</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════════ PRINT SETUP ═══════════════ */
+  /* LinkedIn carousels: 1080x1350 (4:5 portrait) is optimal */
+  /* We use 8.5" x 10.625" at 127 DPI → 1080 x 1350 px */
+  @page {
+    size: 8.5in 10.625in;
+    margin: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 8.5in; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #1a1a1f;
+    color: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Each slide = one printed page */
+  .slide {
+    width: 8.5in;
+    height: 10.625in;
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 0.7in;
+  }
+  .slide:last-child { page-break-after: auto; }
+
+  /* Screen-only preview helper */
+  @media screen {
+    body {
+      background: #0a0a0f;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+    .slide {
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      border-radius: 8px;
+    }
+    .print-tip {
+      max-width: 8.5in;
+      background: #27272a;
+      color: #d4d4d8;
+      padding: 18px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .print-tip strong { color: #4ade80; }
+    .print-tip code { background: #3f3f46; padding: 2px 6px; border-radius: 4px; font-size: 12px; color: #fff; }
+  }
+  @media print {
+    .print-tip { display: none !important; }
+  }
+
+  /* ═══════════════ COMMON ELEMENTS ═══════════════ */
+  .brand-mark { display: inline-flex; align-items: center; gap: 10px; }
+  .brand-mark svg { width: 28px; height: 28px; }
+  .brand-mark .brand-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+  }
+  .brand-mark .brand-text .sub {
+    color: #a78bfa;
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    margin-left: 6px;
+  }
+  .swipe-cue {
+    position: absolute;
+    bottom: 0.55in;
+    right: 0.7in;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4ade80;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .footer-domain {
+    position: absolute;
+    bottom: 0.55in;
+    left: 0.7in;
+    font-size: 13px;
+    color: #71717a;
+    font-weight: 500;
+  }
+  .footer-domain .accent { color: #fff; font-weight: 600; }
+  .slide-num {
+    position: absolute;
+    top: 0.7in;
+    right: 0.7in;
+    font-size: 12px;
+    color: #52525b;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+
+  /* ═══════════════ SLIDE 1 — HOOK ═══════════════ */
+  .s1 {
+    background:
+      radial-gradient(60% 80% at 0% 0%, rgba(74,222,128,0.18), transparent 60%),
+      radial-gradient(60% 80% at 100% 100%, rgba(167,139,250,0.20), transparent 60%),
+      #0a0a0f;
+    justify-content: center;
+    text-align: left;
+  }
+  .s1 .label {
+    color: #4ade80;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .s1 .headline {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 78px;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 32px;
+  }
+  .s1 .headline .accent {
+    background: linear-gradient(90deg, #4ade80, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .s1 .sub {
+    font-size: 22px;
+    color: #a1a1aa;
+    line-height: 1.45;
+    max-width: 560px;
+    font-weight: 400;
+  }
+  .s1 .top-row {
+    position: absolute;
+    top: 0.7in;
+    left: 0.7in;
+  }
+
+  /* ═══════════════ SLIDE 2 — THE PROBLEM ═══════════════ */
+  .s2 {
+    background: #0a0a0f;
+    justify-content: flex-start;
+    padding-top: 1.3in;
+  }
+  .s2 .top-row {
+    position: absolute;
+    top: 0.7in;
+    left: 0.7in;
+  }
+  .s2 .heading-block { margin-bottom: 36px; }
+  .s2 .eyebrow {
+    color: #ef4444;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .s2 .h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 50px;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .s2 .pain-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-top: 28px;
+  }
+  .s2 .pain {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 22px 24px;
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.18);
+    border-radius: 14px;
+  }
+  .s2 .pain .icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: rgba(239, 68, 68, 0.18);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .s2 .pain .text {
+    font-size: 19px;
+    line-height: 1.4;
+    color: #e4e4e7;
+  }
+  .s2 .pain .text strong { color: #fff; font-weight: 600; }
+
+  /* ═══════════════ SLIDE 3 — THE SHIFT ═══════════════ */
+  .s3 {
+    background:
+      radial-gradient(50% 70% at 50% 0%, rgba(96,165,250,0.16), transparent 60%),
+      #0a0a0f;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .s3 .top-row {
+    position: absolute;
+    top: 0.7in;
+    left: 0.7in;
+  }
+  .s3 .meta {
+    color: #60a5fa;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .s3 .h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 56px;
+    max-width: 7in;
+  }
+  .s3 .h3 .accent {
+    background: linear-gradient(90deg, #4ade80, #60a5fa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .s3 .flow {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 8px;
+  }
+  .s3 .step {
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 22px 18px;
+    width: 1.55in;
+    text-align: center;
+  }
+  .s3 .step .num {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    color: #4ade80;
+    margin-bottom: 8px;
+    letter-spacing: 0.1em;
+  }
+  .s3 .step .icon { font-size: 32px; margin-bottom: 8px; }
+  .s3 .step .label-txt {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.25;
+  }
+  .s3 .arrow {
+    color: #60a5fa;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  /* ═══════════════ SLIDE 4 — THE PROOF (mock UI) ═══════════════ */
+  .s4 {
+    background: #0a0a0f;
+    padding: 0.7in;
+    justify-content: flex-start;
+  }
+  .s4 .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+  .s4 .h4 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 6px;
+  }
+  .s4 .h4 .accent { color: #4ade80; }
+  .s4 .h4-sub {
+    color: #a1a1aa;
+    font-size: 17px;
+    margin-bottom: 28px;
+  }
+  .s4 .mock {
+    flex: 1;
+    background: linear-gradient(180deg, #18181b, #0f0f12);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .s4 .mock-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .s4 .mock-title { font-size: 16px; font-weight: 700; color: #fff; }
+  .s4 .mock-status {
+    font-size: 12px; font-weight: 600;
+    color: #4ade80;
+    background: rgba(74,222,128,0.12);
+    padding: 6px 12px;
+    border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .s4 .mock-status::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%; background: #4ade80;
+  }
+  .s4 .row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+  }
+  .s4 .row .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, #4ade80, #60a5fa);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: #0a0a0f; font-size: 14px;
+    flex-shrink: 0;
+  }
+  .s4 .row .info { flex: 1; }
+  .s4 .row .name { font-size: 14px; font-weight: 600; color: #fff; }
+  .s4 .row .meta { font-size: 11px; color: #71717a; margin-top: 2px; }
+  .s4 .row .status {
+    font-size: 11px; font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 999px;
+  }
+  .s4 .row .status.sent { background: rgba(74,222,128,0.15); color: #4ade80; }
+  .s4 .row .status.queued { background: rgba(96,165,250,0.15); color: #60a5fa; }
+  .s4 .row .status.opened { background: rgba(167,139,250,0.15); color: #a78bfa; }
+
+  .s4 .stats-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    margin-top: 4px;
+  }
+  .s4 .stat {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .s4 .stat .label { font-size: 11px; color: #71717a; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; }
+  .s4 .stat .val { font-size: 26px; font-weight: 800; color: #fff; margin-top: 4px; font-family: 'Poppins', sans-serif; }
+  .s4 .stat .val.green { color: #4ade80; }
+  .s4 .stat .val.blue { color: #60a5fa; }
+  .s4 .stat .val.purple { color: #a78bfa; }
+  .s4 .stat .delta { font-size: 11px; color: #4ade80; margin-top: 2px; font-weight: 600; }
+
+  /* ═══════════════ SLIDE 5 — CTA ═══════════════ */
+  .s5 {
+    background:
+      radial-gradient(60% 60% at 50% 30%, rgba(74,222,128,0.18), transparent 60%),
+      radial-gradient(60% 60% at 50% 100%, rgba(167,139,250,0.20), transparent 60%),
+      #0a0a0f;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .s5 .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(74,222,128,0.1);
+    border: 1px solid rgba(74,222,128,0.3);
+    color: #4ade80;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border-radius: 999px;
+    margin-bottom: 28px;
+  }
+  .s5 .badge::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%; background: #4ade80;
+  }
+  .s5 .h5 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    max-width: 7in;
+  }
+  .s5 .h5 .accent {
+    background: linear-gradient(90deg, #4ade80, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .s5 .body {
+    font-size: 22px;
+    color: #d4d4d8;
+    line-height: 1.45;
+    max-width: 6.5in;
+    margin-bottom: 44px;
+  }
+  .s5 .cta-block {
+    background: linear-gradient(135deg, rgba(74,222,128,0.12), rgba(96,165,250,0.10), rgba(167,139,250,0.12));
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 30px 40px;
+    margin-bottom: 16px;
+  }
+  .s5 .cta-label {
+    font-size: 12px;
+    color: #a1a1aa;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .s5 .cta-url {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .s5 .cta-sub {
+    font-size: 16px;
+    color: #4ade80;
+    font-weight: 600;
+  }
+  .s5 .signoff {
+    margin-top: 32px;
+    font-size: 16px;
+    color: #71717a;
+  }
+  .s5 .signoff strong { color: #fff; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="print-tip">
+  <strong>📥 To download as PDF:</strong>
+  <br>
+  Press <code>Ctrl + P</code> (or <code>Cmd + P</code> on Mac) → set <strong>Destination:</strong> "Save as PDF" → set <strong>Margins:</strong> "None" → set <strong>Layout:</strong> "Portrait" → click <strong>Save</strong>.
+  You'll get a 5-page PDF (each page = 1 carousel slide at 1080×1350px) ready to upload to LinkedIn as a "Document" post.
+</div>
+
+<!-- ════════════════ SLIDE 1 — HOOK ════════════════ -->
+<div class="slide s1">
+  <div class="top-row brand-mark">
+    <svg viewBox="0 0 64 64" fill="none">
+      <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+      <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+      <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+    </svg>
+    <span class="brand-text">REXORA<span class="sub">SYSTEMS</span></span>
+  </div>
+  <div class="slide-num">01 / 05</div>
+
+  <div class="label">School Management · Automation</div>
+  <div class="headline">
+    Your school can send <span class="accent">fee reminders</span><br>
+    automatically.<br>
+    Without staff lifting a finger.
+  </div>
+  <div class="sub">A 4-step look at how Rexora built it — and how it cuts admin work by 80%.</div>
+
+  <div class="footer-domain"><span class="accent">rexorasystems.com</span></div>
+  <div class="swipe-cue">Swipe →</div>
+</div>
+
+<!-- ════════════════ SLIDE 2 — THE PROBLEM ════════════════ -->
+<div class="slide s2">
+  <div class="top-row brand-mark">
+    <svg viewBox="0 0 64 64" fill="none">
+      <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+      <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+      <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+    </svg>
+    <span class="brand-text">REXORA<span class="sub">SYSTEMS</span></span>
+  </div>
+  <div class="slide-num">02 / 05</div>
+
+  <div class="heading-block">
+    <div class="eyebrow">The hidden cost</div>
+    <div class="h2">Most schools still chase fees<br>by hand. Every. Single. Term.</div>
+  </div>
+
+  <div class="pain-list">
+    <div class="pain">
+      <div class="icon">📞</div>
+      <div class="text"><strong>2 staff members spend 3 weeks every term</strong> calling parents one by one to remind them about fees.</div>
+    </div>
+    <div class="pain">
+      <div class="icon">📝</div>
+      <div class="text"><strong>Manual ledger entries</strong> mean one missed update = a parent gets reminded for a fee they already paid.</div>
+    </div>
+    <div class="pain">
+      <div class="icon">💸</div>
+      <div class="text"><strong>15–25% of fees collected late</strong> — directly hurts cashflow, payroll, and supplies.</div>
+    </div>
+  </div>
+
+  <div class="footer-domain"><span class="accent">rexorasystems.com</span></div>
+  <div class="swipe-cue">Swipe →</div>
+</div>
+
+<!-- ════════════════ SLIDE 3 — THE SHIFT ════════════════ -->
+<div class="slide s3">
+  <div class="top-row brand-mark">
+    <svg viewBox="0 0 64 64" fill="none">
+      <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+      <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+      <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+    </svg>
+    <span class="brand-text">REXORA<span class="sub">SYSTEMS</span></span>
+  </div>
+  <div class="slide-num">03 / 05</div>
+
+  <div class="meta">The Rexora approach</div>
+  <div class="h3">Set the rule once.<br>The system runs <span class="accent">forever</span>.</div>
+
+  <div class="flow">
+    <div class="step">
+      <div class="num">STEP 1</div>
+      <div class="icon">⚙️</div>
+      <div class="label-txt">Set rule:<br>"3 days before due date"</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step">
+      <div class="num">STEP 2</div>
+      <div class="icon">📊</div>
+      <div class="label-txt">System scans<br>unpaid invoices</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step">
+      <div class="num">STEP 3</div>
+      <div class="icon">📲</div>
+      <div class="label-txt">Auto-sends<br>SMS + Email</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step">
+      <div class="num">STEP 4</div>
+      <div class="icon">💰</div>
+      <div class="label-txt">Tracks<br>payment status</div>
+    </div>
+  </div>
+
+  <div class="footer-domain"><span class="accent">rexorasystems.com</span></div>
+  <div class="swipe-cue">Swipe →</div>
+</div>
+
+<!-- ════════════════ SLIDE 4 — THE PROOF ════════════════ -->
+<div class="slide s4">
+  <div class="top-row">
+    <div class="brand-mark">
+      <svg viewBox="0 0 64 64" fill="none">
+        <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+        <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+        <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+      </svg>
+      <span class="brand-text">REXORA<span class="sub">SYSTEMS</span></span>
+    </div>
+    <div style="font-size: 12px; color: #52525b; font-weight: 600; letter-spacing: 0.1em;">04 / 05</div>
+  </div>
+
+  <div class="h4">Live in the dashboard. <span class="accent">Right now.</span></div>
+  <div class="h4-sub">A real preview from the Rexora school management demo.</div>
+
+  <div class="mock">
+    <div class="mock-header">
+      <div class="mock-title">📨 Fee Reminders — Today's Run</div>
+      <div class="mock-status">Live</div>
+    </div>
+
+    <div class="row">
+      <div class="avatar">AO</div>
+      <div class="info">
+        <div class="name">Adaeze Okeke · JSS 2A</div>
+        <div class="meta">Term 2 fees · ₦125,000 · Due in 3 days</div>
+      </div>
+      <div class="status sent">✓ Sent</div>
+    </div>
+    <div class="row">
+      <div class="avatar">MA</div>
+      <div class="info">
+        <div class="name">Michael Adebayo · SS 1B</div>
+        <div class="meta">Term 2 fees · ₦150,000 · Due in 3 days</div>
+      </div>
+      <div class="status opened">👁 Opened</div>
+    </div>
+    <div class="row">
+      <div class="avatar">CN</div>
+      <div class="info">
+        <div class="name">Chioma Nwosu · Pry 5</div>
+        <div class="meta">Term 2 fees · ₦95,000 · Due in 3 days</div>
+      </div>
+      <div class="status sent">✓ Sent</div>
+    </div>
+    <div class="row">
+      <div class="avatar">TI</div>
+      <div class="info">
+        <div class="name">Tunde Ibrahim · JSS 3C</div>
+        <div class="meta">Term 2 fees · ₦125,000 · Due in 3 days</div>
+      </div>
+      <div class="status queued">⏳ Queued</div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="label">Sent today</div>
+        <div class="val green">142</div>
+        <div class="delta">+0 staff hours used</div>
+      </div>
+      <div class="stat">
+        <div class="label">Opened</div>
+        <div class="val blue">98</div>
+        <div class="delta">69% open rate</div>
+      </div>
+      <div class="stat">
+        <div class="label">Paid in 24h</div>
+        <div class="val purple">37</div>
+        <div class="delta">26% same-day pay</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-domain"><span class="accent">rexorasystems.com</span></div>
+  <div class="swipe-cue">Swipe →</div>
+</div>
+
+<!-- ════════════════ SLIDE 5 — CTA ════════════════ -->
+<div class="slide s5">
+  <div class="top-row brand-mark" style="position: absolute; top: 0.7in; left: 0.7in;">
+    <svg viewBox="0 0 64 64" fill="none">
+      <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+      <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+      <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+    </svg>
+    <span class="brand-text">REXORA<span class="sub">SYSTEMS</span></span>
+  </div>
+  <div class="slide-num">05 / 05</div>
+
+  <div class="badge">Try it live · Free</div>
+  <div class="h5">See the <span class="accent">whole system</span><br>in action.</div>
+  <div class="body">
+    The fee reminder is just <strong style="color:#fff">one of 12 features</strong> in the Rexora School Management demo.<br>
+    Click around. Break it. Tell us what's missing.
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-label">Live demo</div>
+    <div class="cta-url">rexorasystems.com</div>
+    <div class="cta-sub">→ /projects/school-management</div>
+  </div>
+
+  <div class="signoff">
+    Built for schools that are tired of doing things the slow way.<br>
+    <strong>— John Paulson, Founder · Rexora Systems</strong>
+  </div>
+</div>
+
+</body>
+</html>
