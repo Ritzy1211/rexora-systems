@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Discovery Call Script — Rexora Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #18181b;
+    background: #f4f4f5;
+    padding: 24px;
+    line-height: 1.5;
+    font-size: 13px;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px 40px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    border-radius: 10px;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #18181b;
+    margin-bottom: 16px;
+  }
+  .header svg { width: 32px; height: 32px; }
+  .header .title {
+    font-family: 'Poppins';
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+  .header .sub {
+    margin-left: auto;
+    font-size: 11px;
+    color: #6b7280;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .block {
+    border: 1px solid #e4e4e7;
+    border-radius: 8px;
+    padding: 14px 16px;
+    background: #fafafa;
+  }
+  .block.accent-green { border-left: 4px solid #16a34a; background: #f0fdf4; }
+  .block.accent-blue { border-left: 4px solid #2563eb; background: #eff6ff; }
+  .block.accent-purple { border-left: 4px solid #7c3aed; background: #faf5ff; }
+  .block.accent-orange { border-left: 4px solid #ea580c; background: #fff7ed; }
+  .block.accent-red { border-left: 4px solid #dc2626; background: #fef2f2; }
+  .block.accent-dark { border-left: 4px solid #18181b; background: #fafafa; }
+
+  .block h3 {
+    font-family: 'Poppins';
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #18181b;
+    margin-bottom: 8px;
+  }
+  .block .time {
+    float: right;
+    font-size: 10px;
+    background: #18181b;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  .block ul { margin-left: 18px; }
+  .block li { margin-bottom: 4px; font-size: 12px; }
+  .block .q { font-style: italic; color: #18181b; font-weight: 500; }
+
+  .full {
+    grid-column: 1 / -1;
+  }
+
+  .objection-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f4f4f5;
+    font-size: 12px;
+  }
+  .objection-row:last-child { border-bottom: none; }
+  .objection { color: #dc2626; font-weight: 600; font-style: italic; }
+  .response { color: #18181b; }
+  .response strong { color: #16a34a; }
+
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-top: 6px;
+  }
+  .price-table th, .price-table td {
+    text-align: left;
+    padding: 6px 8px;
+    border-bottom: 1px solid #e4e4e7;
+  }
+  .price-table th {
+    background: #18181b;
+    color: white;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+  .price-table .price { font-weight: 700; color: #16a34a; text-align: right; }
+
+  .print-banner {
+    max-width: 880px;
+    margin: 0 auto 16px;
+    background: #18181b;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+  .print-banner button {
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  @media print {
+    body { background: white; padding: 0; font-size: 11px; }
+    .page { box-shadow: none; border-radius: 0; padding: 20px; max-width: 100%; }
+    .no-print { display: none; }
+    .block li { font-size: 10px; }
+    .grid { gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="print-banner no-print">
+  <span>📞 <strong>Discovery Call Script</strong> · Print for your desk or open on a 2nd monitor during calls</span>
+  <button onclick="window.print()">🖨️ Save as PDF</button>
+</div>
+
+<div class="page">
+
+  <div class="header">
+    <svg viewBox="0 0 64 64" fill="none">
+      <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+      <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+      <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+    </svg>
+    <div class="title">Discovery Call Script</div>
+    <div class="sub">
+      Rexora Systems<br/>
+      15-20 min · Diagnose, don't pitch
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- 1. OPEN -->
+    <div class="block accent-green">
+      <h3>1 · Opening <span class="time">2 min</span></h3>
+      <p style="margin-bottom:6px"><strong>Goal:</strong> Set tone. Build rapport. Set expectations.</p>
+      <ul>
+        <li>"Hi {{Name}}, thanks for making time."</li>
+        <li>"Quick agenda: I want to learn about your school for ~10 min, then I'll show you what we'd recommend. Sound good?"</li>
+        <li>"Before we dive in — anything specific you were hoping to get out of this call?"</li>
+      </ul>
+    </div>
+
+    <!-- 2. CURRENT STATE -->
+    <div class="block accent-blue">
+      <h3>2 · Current state <span class="time">4 min</span></h3>
+      <p style="margin-bottom:6px"><strong>Goal:</strong> Understand what they have today.</p>
+      <ul>
+        <li class="q">"How many students do you currently have?"</li>
+        <li class="q">"Walk me through how you collect school fees today — start to finish."</li>
+        <li class="q">"How do parents currently get updates from the school? (calls, WhatsApp, paper letters?)"</li>
+        <li class="q">"Do you have a website? How often do you update it?"</li>
+        <li class="q">"What systems are you using now — Excel, paper, or any software?"</li>
+      </ul>
+    </div>
+
+    <!-- 3. PAIN -->
+    <div class="block accent-purple">
+      <h3>3 · Surface the pain <span class="time">4 min</span></h3>
+      <p style="margin-bottom:6px"><strong>Goal:</strong> Get them to articulate what's broken. <em>They sell themselves.</em></p>
+      <ul>
+        <li class="q">"What's the most time-consuming part of running the school?"</li>
+        <li class="q">"How much time does your bursar spend chasing unpaid fees each week?"</li>
+        <li class="q">"How often do parents call asking the same questions?"</li>
+        <li class="q">"What happens when a parent loses a receipt or report card?"</li>
+        <li class="q">"If you could fix ONE thing about how the school runs admin-wise, what would it be?"</li>
+      </ul>
+      <p style="margin-top:8px; font-size:11px; color:#7c3aed;"><strong>Listen for:</strong> hours wasted, frustrated parents, late fees, manual errors, lost data.</p>
+    </div>
+
+    <!-- 4. FUTURE -->
+    <div class="block accent-orange">
+      <h3>4 · Paint the future <span class="time">3 min</span></h3>
+      <p style="margin-bottom:6px"><strong>Goal:</strong> Get them visualizing the solution.</p>
+      <ul>
+        <li class="q">"Imagine parents pay fees from their phone in 30 seconds — and you get notified instantly. What would that change for the bursar?"</li>
+        <li class="q">"Imagine every parent has a login to see their child's attendance, fees, and reports — no more calls. What's that worth weekly?"</li>
+        <li class="q">"Imagine the system auto-sends fee reminders 7 days before due. How much late payment would that recover?"</li>
+      </ul>
+      <p style="margin-top:8px; font-size:11px; color:#ea580c;"><strong>Then say:</strong> "Want me to show you that working right now?" → Share the demo link.</p>
+    </div>
+
+    <!-- 5. PRICE FRAMING -->
+    <div class="block accent-dark full">
+      <h3>5 · Position the investment <span class="time">3 min</span></h3>
+      <p style="margin-bottom:8px"><strong>Goal:</strong> Anchor on value before saying the price. Then say the price calmly.</p>
+
+      <p><strong>Before stating price, say:</strong></p>
+      <p class="q" style="margin-left:14px;">"Most schools we work with save 8-10 staff hours per week, recover 15-25% more on-time fees, and increase admission inquiries by ~30% in the first term. The investment ranges from ₦150k to ₦750k depending on what's included. Want me to walk through what fits {{School Name}}?"</p>
+
+      <table class="price-table">
+        <thead>
+          <tr><th>Package</th><th>Includes</th><th>Investment</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Starter</strong></td><td>5-page website, contact form, 1yr hosting</td><td class="price">₦150,000</td></tr>
+          <tr><td><strong>Standard</strong></td><td>Starter + parent portal + fee management + attendance</td><td class="price">₦350,000</td></tr>
+          <tr><td><strong>Premium</strong></td><td>Standard + custom dashboard + WhatsApp automation + parent app</td><td class="price">₦750,000</td></tr>
+          <tr><td><strong>Maintenance</strong></td><td>Year-round updates, security, content support</td><td class="price">₦15k/mo</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:8px; font-size:11px;"><strong>Payment:</strong> 50% deposit to start · 50% on launch · 6-week timeline</p>
+    </div>
+
+    <!-- 6. OBJECTIONS -->
+    <div class="block accent-red full">
+      <h3>6 · Handle objections</h3>
+
+      <div class="objection-row">
+        <div class="objection">"It's too expensive"</div>
+        <div class="response">"Totally fair — let me ask: what's the cost of your bursar spending 10 hours/week chasing fees? At even ₦500/hour, that's <strong>₦240k/year in wasted time alone</strong>. The system pays for itself in year 1, then saves money every year after."</div>
+      </div>
+
+      <div class="objection-row">
+        <div class="objection">"Send us a proposal first"</div>
+        <div class="response">"Happy to. Quick question to scope it right: are you looking at <strong>this term, or planning for next term?</strong> That tells me the timeline I should propose."</div>
+      </div>
+
+      <div class="objection-row">
+        <div class="objection">"We need to discuss internally"</div>
+        <div class="response">"Of course. Who else needs to be in that conversation? Want me to join a quick call to answer their questions directly? Saves you having to repeat everything."</div>
+      </div>
+
+      <div class="objection-row">
+        <div class="objection">"We already have someone building this"</div>
+        <div class="response">"Got it. How's that going? When are they delivering? Happy to be plan B if anything slips — I'll stay in touch."</div>
+      </div>
+
+      <div class="objection-row">
+        <div class="objection">"Parents won't use a portal — they're not tech-savvy"</div>
+        <div class="response">"This is the most common worry. We design for that — WhatsApp notifications, USSD payments, no-app-required portal. <strong>92% of parents in our demos used it without training.</strong>"</div>
+      </div>
+
+      <div class="objection-row">
+        <div class="objection">"Can you do it for ₦80,000?"</div>
+        <div class="response">"I can't do the full package at that price — but I CAN do the Starter package for ₦150k, and we can add features later as the school grows. Want to start there?"</div>
+      </div>
+    </div>
+
+    <!-- 7. CLOSE -->
+    <div class="block accent-green full">
+      <h3>7 · Close the call <span class="time">2 min</span></h3>
+      <p style="margin-bottom:6px"><strong>Goal:</strong> Lock the next step. Never end a call without a clear next action.</p>
+      <p><strong>The 3 possible exits:</strong></p>
+      <ul>
+        <li><strong>🟢 Hot:</strong> "Great — I'll send the proposal within 24 hours. Best email? And let's hold a slot for next Thursday to walk through it together — does {{time}} work?"</li>
+        <li><strong>🟡 Warm:</strong> "Sounds like timing might be {{next term/next year}}. Mind if I check in with you in {{X weeks}}? I'll also send the demo link + a 1-pager you can show the team."</li>
+        <li><strong>🔴 Cold:</strong> "All good — sounds like it's not the right fit right now. If anything changes, you have my number. Mind if I follow up in 6 months in case priorities shift?"</li>
+      </ul>
+      <p style="margin-top:8px; font-style:italic; color:#16a34a;"><strong>Whatever happens — within 1 hour, send a thank-you WhatsApp/email with the demo link + a summary of what they said. This converts more deals than anything else.</strong></p>
+    </div>
+
+  </div>
+
+  <!-- DO's and DON'Ts -->
+  <div style="margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+    <div class="block accent-green">
+      <h3>✅ DO</h3>
+      <ul>
+        <li>Use their school's name in every response</li>
+        <li>Take notes on screen so they SEE you listening</li>
+        <li>Pause for 3 seconds after a question — let them think</li>
+        <li>Quote their exact words back ("you said admins waste 10 hours/week...")</li>
+        <li>Share the demo screen if you're on Zoom</li>
+        <li>End with a clear next step + timeline</li>
+      </ul>
+    </div>
+    <div class="block accent-red">
+      <h3>❌ DON'T</h3>
+      <ul>
+        <li>Start pitching before you've heard their pain</li>
+        <li>Talk about features — talk about outcomes</li>
+        <li>Apologize for pricing or discount unprompted</li>
+        <li>Use jargon (API, backend, framework, deploy)</li>
+        <li>Promise things you can't deliver in 6 weeks</li>
+        <li>Leave the call without a next step locked in</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

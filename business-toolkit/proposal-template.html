@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Proposal — {{SCHOOL_NAME}} | Rexora Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #18181b;
+    background: #f4f4f5;
+    padding: 30px;
+    line-height: 1.6;
+  }
+  .page {
+    max-width: 860px;
+    margin: 0 auto 30px;
+    background: white;
+    padding: 60px 70px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    min-height: 1080px;
+    page-break-after: always;
+    position: relative;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* Header */
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e4e4e7;
+  }
+  .brand-row svg { width: 36px; height: 36px; }
+  .brand-name {
+    font-family: 'Poppins';
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .brand-name .sub {
+    color: #a78bfa;
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    margin-left: 6px;
+  }
+  .meta {
+    margin-left: auto;
+    text-align: right;
+    font-size: 11px;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+
+  /* Cover */
+  .cover-title {
+    font-family: 'Poppins';
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-top: 90px;
+    margin-bottom: 8px;
+  }
+  .cover-title .accent {
+    background: linear-gradient(90deg, #16a34a, #2563eb);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .cover-for {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 70px;
+  }
+  .cover-for strong { color: #18181b; font-weight: 600; }
+
+  .cover-summary {
+    background: linear-gradient(135deg, #f0fdf4, #eff6ff);
+    border-left: 4px solid #16a34a;
+    padding: 24px 28px;
+    border-radius: 8px;
+    margin-bottom: 28px;
+  }
+  .cover-summary h3 {
+    font-family: 'Poppins';
+    font-size: 13px;
+    font-weight: 700;
+    color: #15803d;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .cover-summary p { font-size: 16px; color: #111; line-height: 1.7; }
+
+  .cover-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 40px;
+  }
+  .cover-cell {
+    border: 1px solid #e4e4e7;
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .cover-cell .lbl {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7280;
+    margin-bottom: 6px;
+  }
+  .cover-cell .val {
+    font-family: 'Poppins';
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+  }
+
+  /* Section */
+  h2 {
+    font-family: 'Poppins';
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-top: 36px;
+    margin-bottom: 14px;
+    color: #111;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #16a34a;
+    display: inline-block;
+  }
+  h3 {
+    font-family: 'Poppins';
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: #111;
+  }
+  p { margin-bottom: 12px; font-size: 14px; color: #27272a; }
+  ul { margin-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 6px; font-size: 14px; color: #27272a; }
+
+  /* Pricing table */
+  table.pricing {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+    font-size: 13px;
+  }
+  table.pricing th, table.pricing td {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid #e4e4e7;
+  }
+  table.pricing th {
+    background: #fafafa;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6b7280;
+  }
+  table.pricing td.amount { text-align: right; font-weight: 600; }
+  table.pricing tr.total td {
+    font-weight: 700;
+    font-size: 16px;
+    color: #16a34a;
+    border-top: 2px solid #16a34a;
+    border-bottom: none;
+    padding-top: 14px;
+  }
+
+  /* Timeline */
+  .week-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f4f4f5;
+  }
+  .week-row:last-child { border-bottom: none; }
+  .week-label {
+    font-family: 'Poppins';
+    font-weight: 700;
+    color: #16a34a;
+    font-size: 13px;
+  }
+  .week-title { font-weight: 600; color: #111; font-size: 14px; margin-bottom: 4px; }
+  .week-desc { font-size: 13px; color: #6b7280; }
+
+  /* Sign block */
+  .sign-block {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .sign-cell {
+    padding-top: 60px;
+    border-top: 1px solid #18181b;
+  }
+  .sign-cell .role {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7280;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .sign-cell .name { font-weight: 700; font-size: 14px; color: #111; }
+  .sign-cell .sub { font-size: 12px; color: #6b7280; }
+
+  .footer-mini {
+    position: absolute;
+    bottom: 30px;
+    left: 70px;
+    right: 70px;
+    border-top: 1px solid #e4e4e7;
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #9ca3af;
+  }
+
+  .pill {
+    display: inline-block;
+    background: #f0fdf4;
+    color: #15803d;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; padding: 0; }
+    .page {
+      box-shadow: none;
+      margin: 0;
+      page-break-after: always;
+      min-height: 100vh;
+    }
+    .no-print { display: none; }
+  }
+  .print-banner {
+    max-width: 860px;
+    margin: 0 auto 20px;
+    background: #18181b;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+  }
+  .print-banner button {
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<div class="print-banner no-print">
+  <span>📄 <strong>Edit placeholders</strong> (search for <code>{{</code> in your editor), then click → </span>
+  <button onclick="window.print()">🖨️ Save as PDF</button>
+</div>
+
+<!-- ════════════════ PAGE 1 — COVER ════════════════ -->
+<div class="page">
+  <div class="brand-row">
+    <svg viewBox="0 0 64 64" fill="none">
+      <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+      <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+      <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+    </svg>
+    <div class="brand-name">REXORA<span class="sub">SYSTEMS</span></div>
+    <div class="meta">
+      Proposal #{{PROPOSAL_NUMBER}}<br/>
+      {{DATE}}<br/>
+      Valid for 14 days
+    </div>
+  </div>
+
+  <div class="cover-title">
+    Digital systems<br/>
+    for <span class="accent">{{SCHOOL_NAME}}</span>
+  </div>
+  <div class="cover-for">
+    Prepared for <strong>{{DECISION_MAKER_NAME}}</strong>, {{DECISION_MAKER_ROLE}}
+  </div>
+
+  <div class="cover-summary">
+    <h3>Executive summary</h3>
+    <p>
+      {{SCHOOL_NAME}} currently {{CURRENT_PAIN_POINT, e.g., "relies on offline fee collection and paper-based attendance"}}.
+      We propose building a complete digital system that automates fee payments, parent communication, and student records —
+      reducing administrative workload by ~{{HOURS_SAVED}} hours per week and increasing on-time fee collection by {{COLLECTION_LIFT}}%.
+    </p>
+  </div>
+
+  <div class="cover-grid">
+    <div class="cover-cell">
+      <div class="lbl">Investment</div>
+      <div class="val">₦{{TOTAL_PRICE}}</div>
+    </div>
+    <div class="cover-cell">
+      <div class="lbl">Timeline</div>
+      <div class="val">{{WEEKS}} weeks</div>
+    </div>
+    <div class="cover-cell">
+      <div class="lbl">Package</div>
+      <div class="val">{{PACKAGE_NAME}}</div>
+    </div>
+    <div class="cover-cell">
+      <div class="lbl">Includes</div>
+      <div class="val">1-year support</div>
+    </div>
+  </div>
+
+  <div class="footer-mini">
+    <span>rexorasystems.com</span>
+    <span>Page 1 of 4</span>
+  </div>
+</div>
+
+<!-- ════════════════ PAGE 2 — UNDERSTANDING + SCOPE ════════════════ -->
+<div class="page">
+  <div class="brand-row">
+    <svg viewBox="0 0 64 64" fill="none">
+      <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+      <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+      <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+    </svg>
+    <div class="brand-name">REXORA<span class="sub">SYSTEMS</span></div>
+    <div class="meta">Proposal for {{SCHOOL_NAME}}</div>
+  </div>
+
+  <h2>What we understand</h2>
+  <p>Based on our discovery conversation, {{SCHOOL_NAME}} is currently dealing with:</p>
+  <ul>
+    <li>{{PAIN_1, e.g., "Manual fee collection — bursar spends 10+ hours/week chasing payments"}}</li>
+    <li>{{PAIN_2, e.g., "Parents call the school office for routine updates instead of self-serving"}}</li>
+    <li>{{PAIN_3, e.g., "No central place for class schedules, attendance records, or report cards"}}</li>
+    <li>{{PAIN_4, e.g., "Outdated website doesn't attract new admissions in 2026"}}</li>
+  </ul>
+
+  <h2>What we'll build</h2>
+
+  <h3>1. Public school website</h3>
+  <p>Modern, mobile-responsive site that converts prospective parents into admission inquiries.</p>
+  <ul>
+    <li>Home, About, Academics, Admissions, News, Contact pages</li>
+    <li>SEO-optimized for {{LOCATION}} school searches</li>
+    <li>Inquiry/admission form integrated with email + WhatsApp</li>
+    <li>News & events publishing system</li>
+  </ul>
+
+  <h3>2. Parent portal</h3>
+  <p>Each parent logs in to view their child's progress in one place.</p>
+  <ul>
+    <li>Real-time fee balance + payment history</li>
+    <li>Attendance records by term</li>
+    <li>Termly report cards (downloadable PDF)</li>
+    <li>Class timetable + assignment notifications</li>
+  </ul>
+
+  <h3>3. Fee management system</h3>
+  <p>Parents pay online. School gets notified instantly.</p>
+  <ul>
+    <li>Online fee payment via card, transfer, USSD (Paystack/Flutterwave integration)</li>
+    <li>Automated receipts emailed to parent on payment</li>
+    <li>Bursar dashboard showing real-time collections</li>
+    <li>Automated WhatsApp/SMS reminders for outstanding balances</li>
+  </ul>
+
+  <h3>4. Admin dashboard</h3>
+  <p>Single source of truth for school leadership.</p>
+  <ul>
+    <li>Student records (enrollment, class, performance)</li>
+    <li>Staff records + payroll-ready exports</li>
+    <li>Financial reports (daily/weekly/termly)</li>
+    <li>User access controls (Principal, Bursar, Teachers, Parents)</li>
+  </ul>
+
+  <div class="footer-mini">
+    <span>rexorasystems.com</span>
+    <span>Page 2 of 4</span>
+  </div>
+</div>
+
+<!-- ════════════════ PAGE 3 — TIMELINE + INVESTMENT ════════════════ -->
+<div class="page">
+  <div class="brand-row">
+    <svg viewBox="0 0 64 64" fill="none">
+      <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+      <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+      <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+    </svg>
+    <div class="brand-name">REXORA<span class="sub">SYSTEMS</span></div>
+    <div class="meta">Proposal for {{SCHOOL_NAME}}</div>
+  </div>
+
+  <h2>Project timeline</h2>
+
+  <div class="week-row">
+    <div class="week-label">Week 1</div>
+    <div>
+      <div class="week-title">Discovery & design</div>
+      <div class="week-desc">Brand guidelines confirmed. Content gathered. Site map approved. Mockups delivered for sign-off.</div>
+    </div>
+  </div>
+  <div class="week-row">
+    <div class="week-label">Week 2-3</div>
+    <div>
+      <div class="week-title">Build — public site + dashboard</div>
+      <div class="week-desc">Frontend pages built. Admin dashboard structure complete. Payment gateway integrated.</div>
+    </div>
+  </div>
+  <div class="week-row">
+    <div class="week-label">Week 4</div>
+    <div>
+      <div class="week-title">Build — parent portal + automations</div>
+      <div class="week-desc">Parent login flows complete. Fee reminders automation tested. Report card generator deployed.</div>
+    </div>
+  </div>
+  <div class="week-row">
+    <div class="week-label">Week 5</div>
+    <div>
+      <div class="week-title">Testing & data migration</div>
+      <div class="week-desc">Existing student/parent records imported. End-to-end testing with school staff. Bug fixes.</div>
+    </div>
+  </div>
+  <div class="week-row">
+    <div class="week-label">Week 6</div>
+    <div>
+      <div class="week-title">Training & launch</div>
+      <div class="week-desc">Staff training session (in-person or Zoom). Soft launch to parents. Documentation handed over. Site goes live.</div>
+    </div>
+  </div>
+
+  <h2>Investment</h2>
+
+  <table class="pricing">
+    <thead>
+      <tr><th>Item</th><th style="text-align:right">Amount (₦)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>{{PACKAGE_NAME}} — full build & launch</td><td class="amount">{{BUILD_PRICE}}</td></tr>
+      <tr><td>1-year hosting, SSL & domain renewal</td><td class="amount">Included</td></tr>
+      <tr><td>1-year maintenance & support</td><td class="amount">Included</td></tr>
+      <tr><td>Staff training session (2 hours)</td><td class="amount">Included</td></tr>
+      <tr><td>Data migration (existing records)</td><td class="amount">Included</td></tr>
+      <tr class="total"><td>TOTAL</td><td class="amount">₦{{TOTAL_PRICE}}</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:24px">Payment schedule</h3>
+  <ul>
+    <li><strong>50% deposit</strong> on signing — to commence work (₦{{DEPOSIT_AMOUNT}})</li>
+    <li><strong>50% balance</strong> on launch day (₦{{BALANCE_AMOUNT}})</li>
+  </ul>
+
+  <h3>After year 1 (optional)</h3>
+  <p>Ongoing maintenance retainer at <strong>₦15,000/month</strong> or <strong>₦150,000/year</strong> (saving ₦30k) — covers updates, security patches, content changes, priority support.</p>
+
+  <div class="footer-mini">
+    <span>rexorasystems.com</span>
+    <span>Page 3 of 4</span>
+  </div>
+</div>
+
+<!-- ════════════════ PAGE 4 — TERMS + SIGNATURES ════════════════ -->
+<div class="page">
+  <div class="brand-row">
+    <svg viewBox="0 0 64 64" fill="none">
+      <polygon points="32,4 44,22 32,40 20,22" fill="#4ade80"/>
+      <polygon points="4,60 20,22 32,40" fill="#60a5fa"/>
+      <polygon points="60,60 44,22 32,40" fill="#a78bfa"/>
+    </svg>
+    <div class="brand-name">REXORA<span class="sub">SYSTEMS</span></div>
+    <div class="meta">Proposal for {{SCHOOL_NAME}}</div>
+  </div>
+
+  <h2>Why Rexora Systems</h2>
+  <ul>
+    <li><span class="pill">Custom</span> Every system is built around your real workflow — no templates</li>
+    <li><span class="pill">Owned</span> You own every line of code and all your data — no platform lock-in</li>
+    <li><span class="pill">Modern</span> Mobile-first design, fast load times, secure payments</li>
+    <li><span class="pill">Local</span> Built in Nigeria, integrated with Paystack/Flutterwave, supports Naira-first workflows</li>
+    <li><span class="pill">Supported</span> 1-year of free support included, with priority response within 24 hours</li>
+  </ul>
+
+  <h2>Terms</h2>
+  <ul>
+    <li><strong>Validity:</strong> This proposal is valid for 14 days from {{DATE}}.</li>
+    <li><strong>Scope changes:</strong> Anything outside the listed scope is billable at ₦15,000/hour, agreed in writing first.</li>
+    <li><strong>Hosting:</strong> Site hosted on Vercel/Netlify. Domain registered separately if not already owned.</li>
+    <li><strong>Ownership:</strong> All deliverables transfer fully to {{SCHOOL_NAME}} on final payment.</li>
+    <li><strong>Confidentiality:</strong> All shared student/parent data is treated as confidential, encrypted in transit and at rest.</li>
+    <li><strong>Cancellation:</strong> Either party may cancel with 7 days notice. Deposit is non-refundable once design work begins.</li>
+  </ul>
+
+  <h2>Next step</h2>
+  <p>
+    To accept this proposal, sign below and return — or simply reply <em>"approved"</em> to the email this was sent in.
+    On receipt of approval + 50% deposit, work begins within 3 business days.
+  </p>
+
+  <div class="sign-block">
+    <div class="sign-cell">
+      <div class="role">For {{SCHOOL_NAME}}</div>
+      <div class="name">{{DECISION_MAKER_NAME}}</div>
+      <div class="sub">{{DECISION_MAKER_ROLE}} • Date: ____________</div>
+    </div>
+    <div class="sign-cell">
+      <div class="role">For Rexora Systems</div>
+      <div class="name">John Paulson</div>
+      <div class="sub">Founder • Date: {{DATE}}</div>
+    </div>
+  </div>
+
+  <div class="footer-mini">
+    <span>rexorasystems.com · hello@rexorasystems.com</span>
+    <span>Page 4 of 4</span>
+  </div>
+</div>
+
+</body>
+</html>

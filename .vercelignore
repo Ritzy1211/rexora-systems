@@ -1,0 +1,5 @@
+# Files & folders excluded from Vercel deployment
+# Keep private business documents out of the public site
+
+business-toolkit/
+*.csv
